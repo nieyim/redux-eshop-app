@@ -1,58 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+// import DarkModeIcon from '@mui/icons-material/DarkMode';
+// import { Button, PaletteMode } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+// import { useMemo, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { HomePage } from './pages';
+import theme from './utils/theme';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Routes>
+                <Route index element={<HomePage />} />
+                <Route path="/home" element={<HomePage />} />
+                {/* <Route path="/login" element={<LoginPage />} />
+                <Route element={<PrivateRoute />}></Route>
+                <Route path="/*" element={<NotFound />} /> */}
+            </Routes>
+            {/* <Button
+                sx={{ position: 'fixed', bottom: 5, right: 5 }}
+                onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+            >
+                <DarkModeIcon />
+            </Button> */}
+        </ThemeProvider>
+    );
 }
 
 export default App;
