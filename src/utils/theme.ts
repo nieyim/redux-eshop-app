@@ -35,6 +35,16 @@ const rawTheme = createTheme({
         fontWeightRegular: 400, // Work Sans
         fontWeightMedium: 700, // Roboto Condensed
     },
+    components: {
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: 'black',
+                    color: 'white',
+                },
+            },
+        },
+    },
 });
 
 const fontHeader = {

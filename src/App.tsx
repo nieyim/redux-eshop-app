@@ -9,7 +9,9 @@ import { ThemeProvider } from '@mui/material/styles';
 // import { useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { HomePage } from './pages';
+import { HomePage, LoginPage, RegisterPage } from './pages';
+import { AdminPage } from './pages/AdminPage';
+import { PrivateRoute } from './utils/PrivateRoute';
 import theme from './utils/theme';
 
 function App() {
@@ -19,9 +21,12 @@ function App() {
             <Routes>
                 <Route index element={<HomePage />} />
                 <Route path="/home" element={<HomePage />} />
-                {/* <Route path="/login" element={<LoginPage />} />
-                <Route element={<PrivateRoute />}></Route>
-                <Route path="/*" element={<NotFound />} /> */}
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route element={<PrivateRoute />}>
+                    <Route path="/admin" element={<AdminPage />} />
+                </Route>
+                {/* <Route path="/*" element={<NotFound />} />  */}
             </Routes>
             {/* <Button
                 sx={{ position: 'fixed', bottom: 5, right: 5 }}

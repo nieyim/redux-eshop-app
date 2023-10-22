@@ -1,12 +1,12 @@
-import { Product, ListResponse, ObjectResponse } from '../models';
+import { Product, ListResponse, ObjectResponse, Category } from '../models';
 import axiosClient from './axiosClient';
 
-const productsApi = {
+export const productsApi = {
     getAllProducts(): Promise<ListResponse<Product>> {
         const url = 'api/products';
         return axiosClient.get(url);
     },
-    getAllCategory() {
+    getAllCategory(): Promise<ListResponse<Category>> {
         const url = 'api/categories';
         return axiosClient.get(url);
     },
@@ -27,5 +27,3 @@ const productsApi = {
         return axiosClient.post(url, data);
     },
 };
-
-export default productsApi;

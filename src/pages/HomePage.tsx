@@ -1,13 +1,24 @@
 import React from 'react';
-import { HomePageHeader, ProductCategories, ProductHero, ProductValues } from '../components/layout';
+import {
+    ProductCTA,
+    ProductCategories,
+    ProductHero,
+    ProductSmokingHero,
+    ProductValues,
+    PublicFooter,
+    PublicHeader,
+} from '../components/layout';
 
 export function HomePage() {
     return (
         <React.Fragment>
-            <HomePageHeader />
+            <PublicHeader />
             <ProductHero />
             <ProductValues />
             <ProductCategories />
+            <ProductCTA />
+            <ProductSmokingHero />
+            <PublicFooter />
         </React.Fragment>
     );
 }
