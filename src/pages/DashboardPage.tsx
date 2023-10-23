@@ -24,20 +24,6 @@ export function DashboardPage() {
     // Extract the 'total' and 'discountedTotal' values using map()
     const totalArray = cartList.map((item) => item.total);
     const discountedTotalArray = cartList.map((item) => item.discountedTotal);
-    const userIds = cartList.map((item) => item.userId);
-    const userFirstNames: string[] = [];
-
-    (async () => {
-        for (const userId of userIds) {
-            try {
-                const response = await userApi.getUserById(userId); // Replace with your API call
-                const user = response.data;
-                userFirstNames.push(user.firstName);
-            } catch (error: any) {
-                console.log(error.message);
-            }
-        }
-    })();
 
     useEffect(() => {
         dispatch(dashboardThunk());
@@ -126,7 +112,6 @@ export function DashboardPage() {
                                     boxShadow:
                                         '0px 5px 22px rgba(0, 0, 0, 0.04), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.03)',
                                 }}
-                                username={userFirstNames}
                             />
                         </Grid>
                         <Grid item xs={12} md={6} lg={4}></Grid>
