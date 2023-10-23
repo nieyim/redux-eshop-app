@@ -1,7 +1,7 @@
-import { Box, Divider, Drawer, Stack, SvgIcon, Typography, useMediaQuery } from '@mui/material';
+import { Box, Divider, Drawer, Stack, Typography, useMediaQuery } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Scrollbar } from './Scrollbar';
-import { SideNavItem } from './SideNavItem';
+import { Scrollbar } from '../common/Scrollbar';
+import { SideNavItem } from '../common/SideNavItem';
 
 export const AdminSideBar = (props: any) => {
     const { open, onClose } = props;

@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { AdminNav, AdminSideBar } from '../components/common';
+import { AdminNav, AdminSideBar } from '../components/layout';
 
 const SIDE_NAV_WIDTH = 280;
 

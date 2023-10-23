@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +5,7 @@ import { useAppDispatch } from '../../app/hooks';
 import { logout } from '../../features/auth/authSlice';
 
 export const AccountPopover = (props: any) => {
-    const { anchorEl, onClose, open } = props;
+    const { anchorEl, onClose, open, name } = props;
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -39,7 +38,7 @@ export const AccountPopover = (props: any) => {
             >
                 <Typography variant="overline">Account</Typography>
                 <Typography color="text.secondary" variant="body2">
-                    Nieyim
+                    {name}
                 </Typography>
             </Box>
             <Divider />
@@ -63,4 +62,5 @@ AccountPopover.propTypes = {
     anchorEl: PropTypes.any,
     onClose: PropTypes.func,
     open: PropTypes.bool.isRequired,
+    name: PropTypes.string,
 };

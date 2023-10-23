@@ -1,11 +1,36 @@
-import PropTypes from 'prop-types';
-import { Avatar, Card, CardContent, Stack, SvgIcon, Typography } from '@mui/material';
+import CommentIcon from '@mui/icons-material/Comment';
+import GroupIcon from '@mui/icons-material/Group';
+import ListIcon from '@mui/icons-material/List';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import { Avatar, Card, CardContent, LinearProgress, Stack, SvgIcon, Typography } from '@mui/material';
+import { useAppSelector } from '../../app/hooks';
+import { selectIsLoading } from '../../features/auth/authSlice';
+import { useState, useEffect } from 'react';
 
-export const StatisticItems = (props: any) => {
-    const { value, sx } = props;
+export const StatisticItems = (props: { value: number; sx: any; backGround: string; iconName: string }) => {
+    type IconMappings = {
+        [key: string]: JSX.Element;
+    };
+
+    const iconMappings: IconMappings = {
+        Users: <GroupIcon />,
+        Products: <LocalShippingIcon />,
+        Categories: <ListIcon />,
+        Posts: <CommentIcon />,
+        // Add more icon mappings as needed
+    };
+
+    const loading = useAppSelector(selectIsLoading);
+    const [showLoadingSpinner, setShowLoadingSpinner] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setShowLoadingSpinner(false);
+        }, 1000); // 2 seconds delay
+    }, [loading]);
 
     return (
-        <Card sx={sx}>
+        <Card sx={props.sx}>
             <CardContent
                 sx={{
                     padding: '32px 24px',
@@ -14,29 +39,28 @@ export const StatisticItems = (props: any) => {
                     },
                 }}
             >
-                <Stack alignItems="flex-start" direction="row" justifyContent="space-between" spacing={3}>
-                    <Stack spacing={1}>
-                        <Typography color="text.secondary" variant="overline">
-                            Total Profit
-                        </Typography>
-                        <Typography variant="h4">{value}</Typography>
+                {showLoadingSpinner ? (
+                    <LinearProgress color="secondary" />
+                ) : (
+                    <Stack alignItems="flex-start" direction="row" justifyContent="space-between" spacing={3}>
+                        <Stack spacing={1}>
+                            <Typography color="text.secondary" variant="overline">
+                                Total {props.iconName}
+                            </Typography>
+                            <Typography variant="h4">{props.value}</Typography>
+                        </Stack>
+                        <Avatar
+                            sx={{
+                                backgroundColor: props.backGround,
+                                height: 56,
+                                width: 56,
+                            }}
+                        >
+                            <SvgIcon>{iconMappings[props.iconName]}</SvgIcon>
+                        </Avatar>
                     </Stack>
-                    <Avatar
-                        sx={{
-                            backgroundColor: 'success.main',
-                            height: 56,
-                            width: 56,
-                        }}
-                    >
-                        <SvgIcon>{/* <CurrencyDollarIcon /> */}</SvgIcon>
-                    </Avatar>
-                </Stack>
+                )}
             </CardContent>
         </Card>
     );
-};
-
-StatisticItems.propTypes = {
-    value: PropTypes.string,
-    sx: PropTypes.object,
 };

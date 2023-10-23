@@ -1,10 +1,12 @@
-import GroupIcon from '@mui/icons-material/Group';
+import EmailIcon from '@mui/icons-material/Email';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import SearchIcon from '@mui/icons-material/Search';
 import { Avatar, Badge, Box, IconButton, Stack, SvgIcon, Tooltip, alpha, useMediaQuery } from '@mui/material';
 import React from 'react';
-import { usePopover } from '../../app/hooks';
-import { AccountPopover } from './AccountPopover';
+import { useAppSelector, usePopover } from '../../app/hooks';
+import { AccountPopover } from '../common/AccountPopover';
+import { selectUserInfo } from '../../features/auth/authSlice';
 
 export function AdminNav(props: any) {
     const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
@@ -12,6 +14,7 @@ export function AdminNav(props: any) {
     const TOP_NAV_HEIGHT = 64;
     const { onNavOpen } = props;
     const accountPopover = usePopover();
+    const user = useAppSelector(selectUserInfo);
 
     return (
         <React.Fragment>
@@ -51,15 +54,17 @@ export function AdminNav(props: any) {
                         )}
                         <Tooltip title="Search">
                             <IconButton>
-                                <SvgIcon fontSize="small">{/* <MagnifyingGlassIcon /> */}</SvgIcon>
+                                <SvgIcon fontSize="small">
+                                    <SearchIcon />
+                                </SvgIcon>
                             </IconButton>
                         </Tooltip>
                     </Stack>
                     <Stack alignItems="center" direction="row" spacing={2}>
-                        <Tooltip title="Contacts">
+                        <Tooltip title="Mail">
                             <IconButton>
                                 <SvgIcon fontSize="small">
-                                    <GroupIcon />
+                                    <EmailIcon />
                                 </SvgIcon>
                             </IconButton>
                         </Tooltip>
@@ -81,7 +86,7 @@ export function AdminNav(props: any) {
                                 width: 40,
                                 bgcolor: '#ff3366',
                             }}
-                            src="https://mui.com/static/images/avatar/2.jpg"
+                            src={user?.image}
                         >
                             A
                         </Avatar>
@@ -92,6 +97,7 @@ export function AdminNav(props: any) {
                 anchorEl={accountPopover.anchorRef.current}
                 open={accountPopover.open}
                 onClose={accountPopover.handleClose}
+                name={(user?.firstName ?? '') + ' ' + (user?.lastName ?? '')}
             />
         </React.Fragment>
     );

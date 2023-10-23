@@ -33,7 +33,7 @@ export function LoginPage() {
                     hideProgressBar: true,
                 });
                 setTimeout(() => {
-                    navigate('/admin');
+                    navigate('/admin/dashboard');
                 }, 1000);
             } else {
                 toast.error('Invalid Credentials!', {

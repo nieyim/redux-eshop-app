@@ -6,3 +6,5 @@ export * from './ProductCTA';
 export * from './ProductSmokingHero';
 export * from './PublicFooter';
 export * from './AuthForm';
+export * from './AdminNav';
+export * from './AdminSideBar';
