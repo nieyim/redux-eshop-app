@@ -16,46 +16,39 @@ export interface AuthFormProps {
 }
 
 export function AuthForm({ onSubmit, isSignIn }: AuthFormProps) {
-    const schemaBuilder = (isSignIn: boolean) => {
-        const commonFields = {
-            username: yup
-                .string()
-                .required('Username is required')
-                .min(3, 'Username must be at least 3 characters')
-                .max(20, 'Username must not exceed 20 characters')
-                .matches(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
-            password: yup
-                .string()
-                .required('Password is required')
-                .min(6, 'Password must be at least 6 characters')
-                .matches(
-                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/,
-                    'Password must contain at least one digit, one lowercase letter, and one uppercase letter',
-                ),
-        };
+    const signInSchema = yup.object().shape({
+        username: yup.string().required('Username is required'),
+        password: yup.string().required('Password is required'),
+    });
 
-        if (isSignIn) {
-            return yup.object().shape({
-                ...commonFields,
-            });
-        }
+    const signUpSchema = yup.object().shape({
+        username: yup
+            .string()
+            .required('Username is required')
+            .min(3, 'Username must be at least 3 characters')
+            .max(20, 'Username must not exceed 20 characters')
+            .matches(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+        password: yup
+            .string()
+            .required('Password is required')
+            .min(6, 'Password must be at least 6 characters')
+            .matches(
+                /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/,
+                'Password must contain at least one digit, one lowercase letter, and one uppercase letter',
+            ),
+        firstName: yup
+            .string()
+            .required('First name is required')
+            .min(2, 'First name must be at least 2 characters')
+            .max(50, 'First name must not exceed 50 characters'),
+        lastName: yup
+            .string()
+            .required('Last name is required')
+            .min(2, 'Last name must be at least 2 characters')
+            .max(50, 'Last name must not exceed 50 characters'),
+    });
 
-        return yup.object().shape({
-            ...commonFields,
-            firstName: yup
-                .string()
-                .required('First name is required')
-                .min(2, 'First name must be at least 2 characters')
-                .max(50, 'First name must not exceed 50 characters'),
-            lastName: yup
-                .string()
-                .required('Last name is required')
-                .min(2, 'Last name must be at least 2 characters')
-                .max(50, 'Last name must not exceed 50 characters'),
-        });
-    };
-
-    const validationSchema = schemaBuilder(isSignIn);
+    const validationSchema = isSignIn ? signInSchema : signUpSchema;
 
     // const [showSignIn, setShowSignIn] = useState(isSignIn);
     const formTitle = isSignIn ? 'Sign In' : 'Sign Up';

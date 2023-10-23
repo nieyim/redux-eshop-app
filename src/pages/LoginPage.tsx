@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { AuthForm, PublicFooter, PublicHeader } from '../components/layout';
-import { selectUserInfo } from '../features/auth/authSlice';
-import { authThunk } from '../features/auth/authThunk';
-import { LoginPayload } from '../models';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAppDispatch } from '../app/hooks';
+import { AuthForm, PublicFooter, PublicHeader } from '../components/layout';
+import { authThunk } from '../features/auth/authThunk';
+import { LoginPayload } from '../models';
 
 export function LoginPage() {
     // const userInfo = useAppSelector(selectUserInfo);

@@ -1,16 +1,38 @@
-import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../app/hooks';
-import { logout } from '../features/auth/authSlice';
+import { styled } from '@mui/material/styles';
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import { AdminNav, AdminSideBar } from '../components/common';
+
+const SIDE_NAV_WIDTH = 280;
+
+const LayoutRoot = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flex: '1 1 auto',
+    maxWidth: '100%',
+    [theme.breakpoints.up('lg')]: {
+        paddingLeft: SIDE_NAV_WIDTH,
+    },
+}));
+
+const LayoutContainer = styled('div')({
+    display: 'flex',
+    flex: '1 1 auto',
+    flexDirection: 'column',
+    width: '100%',
+});
 
 export function AdminPage() {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    const [openNav, setOpenNav] = useState(false);
 
-    const handleLogOut = () => {
-        dispatch(logout());
-        navigate('/login');
-    };
-
-    return <Button onClick={handleLogOut}>Log out</Button>;
+    return (
+        <React.Fragment>
+            <AdminNav onNavOpen={() => setOpenNav(true)} />
+            <AdminSideBar onClose={() => setOpenNav(false)} open={openNav} />
+            <LayoutRoot>
+                <LayoutContainer>
+                    <Outlet />
+                </LayoutContainer>
+            </LayoutRoot>
+        </React.Fragment>
+    );
 }

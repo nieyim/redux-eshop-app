@@ -9,7 +9,7 @@ import { ThemeProvider } from '@mui/material/styles';
 // import { useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { HomePage, LoginPage, RegisterPage } from './pages';
+import { DashboardPage, HomePage, LoginPage, ProductPage, RegisterPage } from './pages';
 import { AdminPage } from './pages/AdminPage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import theme from './utils/theme';
@@ -24,7 +24,10 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route element={<PrivateRoute />}>
-                    <Route path="/admin" element={<AdminPage />} />
+                    <Route path="/admin" element={<AdminPage />}>
+                        <Route path="/admin/dashboard" element={<DashboardPage />} />
+                        <Route path="/admin/products" element={<ProductPage />}></Route>
+                    </Route>
                 </Route>
                 {/* <Route path="/*" element={<NotFound />} />  */}
             </Routes>
