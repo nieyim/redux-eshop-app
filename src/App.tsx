@@ -9,7 +9,7 @@ import { ThemeProvider } from '@mui/material/styles';
 // import { useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { DashboardPage, HomePage, LoginPage, ProductPage, RegisterPage } from './pages';
+import { DashboardPage, HomePage, LoginPage, NotFound, ProductPage, RegisterPage } from './pages';
 import { AdminPage } from './pages/AdminPage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import theme from './utils/theme';
@@ -34,7 +34,7 @@ function App() {
                         </Route>
                     </Route>
                 </Route>
-                {/* <Route path="/*" element={<NotFound />} />  */}
+                <Route path="/*" element={<NotFound />} />
             </Routes>
             {/* <Button
                 sx={{ position: 'fixed', bottom: 5, right: 5 }}

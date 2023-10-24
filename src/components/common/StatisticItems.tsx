@@ -23,7 +23,7 @@ export const StatisticItems = (props: { value: number; sx: any; backGround: stri
     useEffect(() => {
         setTimeout(() => {
             setShowLoadingSpinner(false);
-        }, 1000); // 2 seconds delay
+        }, 500); // 2 seconds delay
     }, [loading]);
 
     return (

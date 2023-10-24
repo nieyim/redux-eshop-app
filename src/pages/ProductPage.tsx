@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography, Button, SvgIcon } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 

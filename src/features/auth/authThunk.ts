@@ -10,7 +10,7 @@ export const authThunk = createAsyncThunk('auth/login', async (loginPayload: Log
         const data = response.data;
 
         // Store the user's token in local storage
-        localStorage.setItem('token', data.token);
+        sessionStorage.setItem('token', data.token);
 
         // Return the data, which will be the action.payload in the success case
         return data;

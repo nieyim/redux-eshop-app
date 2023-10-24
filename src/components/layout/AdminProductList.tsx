@@ -6,13 +6,15 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    IconButton,
     LinearProgress,
     Stack,
     SvgIcon,
+    Tooltip,
     Typography,
 } from '@mui/material';
 
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -21,12 +23,22 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectIsLoading, selectProductList } from '../../features/product/productSlice';
 import { productThunk } from '../../features/product/productThunk';
 import { Product } from '../../models';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 export function AdminProductList() {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const data = useAppSelector(selectProductList);
     const loading = useAppSelector(selectIsLoading);
-    const navigate = useNavigate();
+    // const [showLoadingSpinner, setShowLoadingSpinner] = useState(true);
+    const [open, setOpen] = useState(false); // Open dialog state
+    const [productSelected, setProductSelected] = useState<Product>(); // Product choose when click
+    const [paginationModel, setPaginationModel] = useState({
+        // Current pagination model state
+        page: Number(sessionStorage.getItem('currentPage')),
+        pageSize: 10,
+    });
 
     useEffect(() => {
         // Dispatch an action to fetch product data
@@ -36,16 +48,15 @@ export function AdminProductList() {
     const handleClick = () => {
         // Navigate to the "Add New Product" page
         navigate('/admin/products/add');
+        sessionStorage.setItem('currentPage', paginationModel.page.toString());
     };
-
-    const [open, setOpen] = useState(false); // Open dialog state
-    const [productSelected, setProductSelected] = useState<Product>(); // Product choose when click
 
     const handleRemoveProduct = async (product?: Product) => {
         // Handle remove button click
         try {
             const response = await productsApi.deleteProduct(product?.id);
-            if (response.data.isDeleted) {
+            console.log(response.status);
+            if (response.status === 200) {
                 // Show a success toast when a product is deleted
                 toast.success(`Product deleted successfully!`, {
                     position: toast.POSITION.TOP_RIGHT,
@@ -62,6 +73,7 @@ export function AdminProductList() {
                     hideProgressBar: true,
                 });
             }
+            dispatch(productThunk());
         } catch (error) {
             console.log('Failed');
         }
@@ -72,6 +84,7 @@ export function AdminProductList() {
         // Navigate to the edit page for the selected product
         try {
             navigate(`/admin/products/${product?.id}`);
+            sessionStorage.setItem('currentPage', paginationModel.page.toString());
         } catch (error) {
             console.log('Failed');
         }
@@ -102,33 +115,44 @@ export function AdminProductList() {
 
     const columns: GridColDef[] = [
         // Define the columns for the DataGrid
-        { field: 'id', headerName: 'ID', width: 70, headerAlign: 'center', align: 'center' },
-        { field: 'title', headerName: 'Product Name', width: 250, headerAlign: 'center', align: 'center' },
-        { field: 'brand', headerName: 'Brand', width: 200, headerAlign: 'center', align: 'center' },
-        { field: 'rating', headerName: 'Rating', align: 'center', type: 'number', width: 90, headerAlign: 'center' },
+        { field: 'id', headerName: 'ID', headerAlign: 'center', align: 'center', flex: 1, maxWidth: 60 },
+        { field: 'title', headerName: 'Product Name', headerAlign: 'center', align: 'center', flex: 1, minWidth: 400 },
+        { field: 'brand', headerName: 'Brand', headerAlign: 'center', align: 'center', flex: 1, minWidth: 300 },
+        {
+            field: 'rating',
+            headerName: 'Rating',
+            align: 'center',
+            type: 'number',
+            headerAlign: 'center',
+            flex: 1,
+            minWidth: 120,
+        },
         {
             field: 'price',
             align: 'center',
             headerName: 'Price ($)',
             type: 'number',
-            width: 90,
             headerAlign: 'center',
+            flex: 1,
+            minWidth: 120,
         },
         {
             field: 'discount',
             align: 'center',
             headerName: 'Discount (%)',
             type: 'number',
-            width: 110,
             headerAlign: 'center',
+            flex: 1,
+            minWidth: 120,
         },
         {
             field: 'stock',
             align: 'center',
             headerName: 'Stock',
             type: 'number',
-            width: 90,
             headerAlign: 'center',
+            flex: 1,
+            minWidth: 120,
         },
 
         {
@@ -136,32 +160,36 @@ export function AdminProductList() {
             headerAlign: 'center',
             headerName: 'Manage',
             sortable: false,
-            width: 200,
             align: 'center',
+            minWidth: 120,
+            flex: 1,
             renderCell: (params: GridRenderCellParams<any, Date>) => (
                 // Render cell with "Edit" and "Delete" buttons
-                <strong>
-                    <Button
-                        variant="contained"
-                        size="small"
-                        style={{ marginLeft: 10 }}
-                        tabIndex={params.hasFocus ? 0 : -1}
-                        onClick={() => handleEditProduct(params.row)}
-                        color="info"
-                    >
-                        Edit
-                    </Button>
-                    <Button
-                        variant="contained"
-                        size="small"
-                        style={{ marginLeft: 10 }}
-                        tabIndex={params.hasFocus ? 0 : -1}
-                        color="error"
-                        onClick={() => handleClickOpen(params.row)}
-                    >
-                        Delete
-                    </Button>
-                </strong>
+                <Stack direction="row" spacing={1}>
+                    <Tooltip title="Update">
+                        <IconButton
+                            size="small"
+                            sx={{ ml: 1 }}
+                            tabIndex={params.hasFocus ? 0 : -1}
+                            onClick={() => handleEditProduct(params.row)}
+                            color="info"
+                        >
+                            <EditIcon fontSize="inherit" />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                        <IconButton
+                            size="small"
+                            sx={{ ml: 1 }}
+                            tabIndex={params.hasFocus ? 0 : -1}
+                            color="error"
+                            onClick={() => handleClickOpen(params.row)}
+                            aria-label="fingerprint"
+                        >
+                            <DeleteIcon fontSize="inherit" />
+                        </IconButton>
+                    </Tooltip>
+                </Stack>
             ),
         },
     ];
@@ -186,7 +214,7 @@ export function AdminProductList() {
                         color="success"
                         onClick={handleClick}
                     >
-                        Add
+                        Add New Product
                     </Button>
                 </div>
             </Stack>
@@ -194,6 +222,9 @@ export function AdminProductList() {
                 <LinearProgress color="secondary" />
             ) : (
                 <DataGrid
+                    disableRowSelectionOnClick
+                    disableColumnMenu
+                    autoHeight
                     rows={rows}
                     columns={columns}
                     initialState={{
@@ -206,6 +237,15 @@ export function AdminProductList() {
                         height: '100%',
                         borderRadius: 5,
                         boxShadow: '0px 5px 22px rgba(0, 0, 0, 0.04), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.03)',
+                        p: 2,
+                    }}
+                    paginationModel={paginationModel}
+                    onPaginationModelChange={setPaginationModel}
+                    slots={{ toolbar: GridToolbar }}
+                    slotProps={{
+                        toolbar: {
+                            showQuickFilter: true,
+                        },
                     }}
                 />
             )}
@@ -224,7 +264,9 @@ export function AdminProductList() {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose} color="info">
+                        Cancel
+                    </Button>
                     <Button onClick={() => handleRemoveProduct(productSelected)} autoFocus color="error">
                         Delete
                     </Button>

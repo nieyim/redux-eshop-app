@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { User } from '../../models';
 import { authThunk } from './authThunk';
+import { getJwtTokenFromSessionStorage } from '../../utils/jwt';
 
 interface AuthState {
     loading: boolean;
@@ -13,7 +14,7 @@ interface AuthState {
 
 const initialState: AuthState = {
     loading: false,
-    userInfo: null,
+    userInfo: getJwtTokenFromSessionStorage() || null,
     userToken: null,
     error: '',
     success: false,
@@ -30,7 +31,7 @@ const authSlice = createSlice({
             state.userToken = null;
             state.error = '';
             state.success = false;
-            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
         },
     },
     extraReducers: (builder) => {

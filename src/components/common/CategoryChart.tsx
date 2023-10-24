@@ -88,7 +88,7 @@ export const CategoryChart = () => {
     useEffect(() => {
         setTimeout(() => {
             setShowLoadingSpinner(false);
-        }, 1000); // 2 seconds delay
+        }, 500); // 2 seconds delay
     }, [loading]);
 
     const chartOptions = useChartOptions(labels);

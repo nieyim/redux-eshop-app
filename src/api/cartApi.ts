@@ -1,4 +1,4 @@
-import { ListResponse, Post } from '../models';
+import { ListResponse } from '../models';
 import { Cart } from '../models/Cart';
 import axiosClient from './axiosClient';
 

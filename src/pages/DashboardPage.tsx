@@ -1,18 +1,14 @@
 import { Box, Container, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
-import { StatisticItems } from '../components/common';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { CategoryChart, StatisticItems, TopPriceChart } from '../components/common';
 import {
-    selectUserCount,
-    selectProductCount,
     selectCategoryCount,
     selectPostCount,
-    selectBarChartUser,
-    selectBarChartCart,
-    selectPieChart,
+    selectProductCount,
+    selectUserCount,
 } from '../features/dashboard/dashboardSlice';
 import { dashboardThunk } from '../features/dashboard/dashboardThunk';
-import { TopPriceChart, CategoryChart } from '../components/common';
 
 export function DashboardPage() {
     const dispatch = useAppDispatch();

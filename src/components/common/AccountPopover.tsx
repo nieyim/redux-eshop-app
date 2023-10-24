@@ -12,6 +12,8 @@ export const AccountPopover = (props: any) => {
 
     const handleSignOut = () => {
         dispatch(logout());
+        sessionStorage.removeItem('activeIndex');
+        sessionStorage.removeItem('currentPage');
         navigate('/login');
     };
 

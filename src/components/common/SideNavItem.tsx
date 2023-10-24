@@ -9,7 +9,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export function SideNavItem() {
     // Use local storage to store and retrieve the active index
-    const storedActiveIndex = localStorage.getItem('activeIndex');
+    const storedActiveIndex = sessionStorage.getItem('activeIndex');
     const [active, setActive] = useState(storedActiveIndex ? parseInt(storedActiveIndex) : 0);
 
     const items = [
@@ -23,7 +23,7 @@ export function SideNavItem() {
     useEffect(() => {
         // Update local storage when the active index changes
         if (active !== null) {
-            localStorage.setItem('activeIndex', active.toString());
+            sessionStorage.setItem('activeIndex', active.toString());
         }
     }, [active]);
 

@@ -44,7 +44,7 @@ const useChartOptions = (userNameList: string[]) => {
         },
         plotOptions: {
             bar: {
-                columnWidth: '20px',
+                columnWidth: '60%',
             },
         },
         stroke: {
@@ -94,7 +94,7 @@ export const TopPriceChart = () => {
     useEffect(() => {
         setTimeout(() => {
             setShowLoadingSpinner(false);
-        }, 1000); // 2 seconds delay
+        }, 500); // 2 seconds delay
     }, [loading]);
 
     const totalArray = cartList.map((item) => item.total);
