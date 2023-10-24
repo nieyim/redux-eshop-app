@@ -1,9 +1,12 @@
-import { Card, CardContent, CardHeader } from '@mui/material';
+import { Card, CardContent, CardHeader, LinearProgress } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import PropTypes from 'prop-types';
 import Chart from 'react-apexcharts';
+import { useAppSelector } from '../../app/hooks';
+import { selectIsLoading } from '../../features/auth/authSlice';
+import { selectBarChartCart, selectBarChartUser } from '../../features/dashboard/dashboardSlice';
+import { useState, useEffect } from 'react';
 
-const useChartOptions = () => {
+const useChartOptions = (userNameList: string[]) => {
     const theme = useTheme();
 
     return {
@@ -61,7 +64,7 @@ const useChartOptions = () => {
                 color: theme.palette.divider,
                 show: true,
             },
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+            categories: userNameList,
             labels: {
                 offsetY: 5,
                 style: {
@@ -81,21 +84,51 @@ const useChartOptions = () => {
     };
 };
 
-export const TopPriceChart = (props: any) => {
-    const { chartSeries, sx } = props;
-    const chartOptions = useChartOptions();
+export const TopPriceChart = () => {
+    // Extract the 'total' and 'discountedTotal' values using map()
+    const cartList = useAppSelector(selectBarChartCart);
+    const loading = useAppSelector(selectIsLoading);
+    const userNameList = useAppSelector(selectBarChartUser);
+    const [showLoadingSpinner, setShowLoadingSpinner] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setShowLoadingSpinner(false);
+        }, 1000); // 2 seconds delay
+    }, [loading]);
+
+    const totalArray = cartList.map((item) => item.total);
+    const discountedTotalArray = cartList.map((item) => item.discountedTotal);
+
+    const series = [
+        {
+            name: 'Total Price',
+            data: totalArray,
+        },
+        {
+            name: 'Price After Discount',
+            data: discountedTotalArray,
+        },
+    ];
+
+    const chartOptions = useChartOptions(userNameList);
 
     return (
-        <Card sx={sx}>
+        <Card
+            sx={{
+                height: '100%',
+                borderRadius: 5,
+                boxShadow: '0px 5px 22px rgba(0, 0, 0, 0.04), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.03)',
+            }}
+        >
             <CardHeader title="Recent Orders Value" />
             <CardContent>
-                <Chart height={350} options={chartOptions} series={chartSeries} type="bar" width="100%" />
+                {showLoadingSpinner ? (
+                    <LinearProgress color="secondary" />
+                ) : (
+                    <Chart height={350} options={chartOptions} series={series} type="bar" width="100%" />
+                )}
             </CardContent>
         </Card>
     );
-};
-
-TopPriceChart.protoTypes = {
-    chartSeries: PropTypes.array.isRequired,
-    sx: PropTypes.object,
 };

@@ -8,3 +8,5 @@ export * from './PublicFooter';
 export * from './AuthForm';
 export * from './AdminNav';
 export * from './AdminSideBar';
+export * from './AdminProductList';
+export * from './AdminAddEditProduct';

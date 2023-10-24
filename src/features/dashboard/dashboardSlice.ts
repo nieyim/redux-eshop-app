@@ -12,7 +12,8 @@ const initialState: DashboardState = {
         postCount: 0,
     },
     error: '',
-    barchart: [],
+    barchartCart: [],
+    barchartUser: [],
     piechart: [],
 };
 
@@ -31,8 +32,9 @@ const dashboardSlice = createSlice({
                 state.statistics.productCount = action.payload.productCount;
                 state.statistics.productCategoryCount = action.payload.categoryCount;
                 state.statistics.postCount = action.payload.postCount;
-                state.barchart = action.payload.cartList;
-                state.piechart = action.payload.productEachCategory;
+                state.barchartCart = action.payload.cartList;
+                state.barchartUser = action.payload.userName;
+                state.piechart = action.payload.genderCount;
             })
             .addCase(dashboardThunk.rejected, (state: DashboardState, action) => {
                 state.loading = false;
@@ -47,5 +49,6 @@ export const selectProductCount = (state: RootState) => state.dashboard.statisti
 export const selectCategoryCount = (state: RootState) => state.dashboard.statistics.productCategoryCount;
 export const selectPostCount = (state: RootState) => state.dashboard.statistics.postCount;
 export const selectIsLoading = (state: RootState) => state.dashboard.loading;
-export const selectBarChart = (state: RootState) => state.dashboard.barchart;
+export const selectBarChartCart = (state: RootState) => state.dashboard.barchartCart;
+export const selectBarChartUser = (state: RootState) => state.dashboard.barchartUser;
 export const selectPieChart = (state: RootState) => state.dashboard.piechart;

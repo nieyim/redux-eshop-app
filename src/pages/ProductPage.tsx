@@ -1,3 +1,22 @@
+import { Box, Container, Stack, Typography, Button, SvgIcon } from '@mui/material';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+
 export function ProductPage() {
-    return <h2>ProductPage</h2>;
+    return (
+        <React.Fragment>
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    py: 8,
+                    backgroundColor: '#fcfcfc',
+                }}
+            >
+                <Container maxWidth="xl">
+                    <Outlet />
+                </Container>
+            </Box>
+        </React.Fragment>
+    );
 }

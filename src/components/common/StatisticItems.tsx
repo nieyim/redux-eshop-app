@@ -6,12 +6,9 @@ import { Avatar, Card, CardContent, LinearProgress, Stack, SvgIcon, Typography }
 import { useAppSelector } from '../../app/hooks';
 import { selectIsLoading } from '../../features/auth/authSlice';
 import { useState, useEffect } from 'react';
+import { IconMappings } from '../../models';
 
 export const StatisticItems = (props: { value: number; sx: any; backGround: string; iconName: string }) => {
-    type IconMappings = {
-        [key: string]: JSX.Element;
-    };
-
     const iconMappings: IconMappings = {
         Users: <GroupIcon />,
         Products: <LocalShippingIcon />,

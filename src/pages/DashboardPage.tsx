@@ -7,11 +7,12 @@ import {
     selectProductCount,
     selectCategoryCount,
     selectPostCount,
-    selectBarChart,
+    selectBarChartUser,
+    selectBarChartCart,
+    selectPieChart,
 } from '../features/dashboard/dashboardSlice';
 import { dashboardThunk } from '../features/dashboard/dashboardThunk';
-import { TopPriceChart } from '../components/common/TopPriceChart';
-import { userApi } from '../api';
+import { TopPriceChart, CategoryChart } from '../components/common';
 
 export function DashboardPage() {
     const dispatch = useAppDispatch();
@@ -19,11 +20,6 @@ export function DashboardPage() {
     const productCount = useAppSelector(selectProductCount);
     const categoryCount = useAppSelector(selectCategoryCount);
     const postCount = useAppSelector(selectPostCount);
-    const cartList = useAppSelector(selectBarChart);
-
-    // Extract the 'total' and 'discountedTotal' values using map()
-    const totalArray = cartList.map((item) => item.total);
-    const discountedTotalArray = cartList.map((item) => item.discountedTotal);
 
     useEffect(() => {
         dispatch(dashboardThunk());
@@ -95,26 +91,11 @@ export function DashboardPage() {
                         </Grid>
                         {/* Chart */}
                         <Grid item xs={12} lg={8}>
-                            <TopPriceChart
-                                chartSeries={[
-                                    {
-                                        name: 'Total Price',
-                                        data: totalArray,
-                                    },
-                                    {
-                                        name: 'Price After Discount',
-                                        data: discountedTotalArray,
-                                    },
-                                ]}
-                                sx={{
-                                    height: '100%',
-                                    borderRadius: 5,
-                                    boxShadow:
-                                        '0px 5px 22px rgba(0, 0, 0, 0.04), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.03)',
-                                }}
-                            />
+                            <TopPriceChart />
                         </Grid>
-                        <Grid item xs={12} md={6} lg={4}></Grid>
+                        <Grid item xs={12} md={6} lg={4}>
+                            <CategoryChart />
+                        </Grid>
                     </Grid>
                 </Container>
             </Box>

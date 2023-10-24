@@ -56,7 +56,28 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
     },
 }));
 
-const width = ['40%', '20%', '40%', '38%', '38%', '24%', '40%', '20%', '40%'];
+const width = [
+    '40%',
+    '20%',
+    '40%',
+    '38%',
+    '38%',
+    '24%',
+    '40%',
+    '20%',
+    '40%',
+    '40%',
+    '20%',
+    '40%',
+    '38%',
+    '38%',
+    '24%',
+    '40%',
+    '20%',
+    '40%',
+    '50%',
+    '50%',
+];
 
 export function ProductCategories() {
     const [categoryList, setCategoryList] = useState<Category[]>([]);
