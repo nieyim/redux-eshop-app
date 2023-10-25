@@ -10,3 +10,6 @@ export * from './AdminNav';
 export * from './AdminSideBar';
 export * from './AdminProductList';
 export * from './AdminAddEditProduct';
+export * from './ProductFilters';
+export * from './ProductSort';
+

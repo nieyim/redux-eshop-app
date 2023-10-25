@@ -214,7 +214,7 @@ export function AdminProductList() {
                         color="success"
                         onClick={handleClick}
                     >
-                        Add New Product
+                        Add
                     </Button>
                 </div>
             </Stack>

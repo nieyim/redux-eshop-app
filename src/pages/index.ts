@@ -2,5 +2,8 @@ export * from './HomePage';
 export * from './LoginPage';
 export * from './RegisterPage';
 export * from './DashboardPage';
-export * from './ProductPage';
+export * from './AdminProductPage';
 export * from './NotFound';
+export * from './ProductPage';
+
+
