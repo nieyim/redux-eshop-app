@@ -2,7 +2,6 @@ import { createTheme } from '@mui/material/styles';
 import { green, grey, red } from '@mui/material/colors';
 
 const rawTheme = createTheme({
-    
     palette: {
         primary: {
             light: '#69696a',
@@ -48,35 +47,34 @@ const rawTheme = createTheme({
         MuiPaper: {
             styleOverrides: {
                 root: {
-                    scrollbarColor: "#6b6b6b #2b2b2b",
-                    "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-                      backgroundColor: "#000",
-                      width: '12px'
+                    scrollbarColor: '#6b6b6b #2b2b2b',
+                    '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
+                        backgroundColor: '#000',
+                        width: '12px',
                     },
-                    "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb" : {
-                      borderRadius: 8,
-                      backgroundColor: "#6b6b6b",
-                      minHeight: 24,
-                      border: "2px solid #000",
-                      width: '0.7rem'
+                    '&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb': {
+                        borderRadius: 8,
+                        backgroundColor: '#6b6b6b',
+                        minHeight: 24,
+                        border: '2px solid #000',
+                        width: '0.7rem',
                     },
-                    "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus": {
-                      backgroundColor: "#959595",
+                    '&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus': {
+                        backgroundColor: '#959595',
                     },
-                    "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active": {
-                      backgroundColor: "#959595",
+                    '&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active': {
+                        backgroundColor: '#959595',
                     },
-                    "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover": {
-                      backgroundColor: "#959595",
+                    '&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover': {
+                        backgroundColor: '#959595',
                     },
-                    "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
-                      backgroundColor: "#000",
+                    '&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner': {
+                        backgroundColor: '#000',
                     },
-                  },
-            }
-        }
+                },
+            },
+        },
     },
-    
 });
 
 const fontHeader = {

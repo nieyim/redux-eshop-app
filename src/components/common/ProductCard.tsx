@@ -38,25 +38,26 @@ export function ProductCard({ product }: { product: Product }) {
                 objectFit: 'cover',
                 position: 'absolute',
             }}
+            loading="lazy"
         />
     );
 
-    const discountedPrice = (product.price - (product.price * product.discountPercentage) / 100).toFixed(2);
+    const discountedPrice = (product.price - (product.price * product.discountPercentage) / 100).toFixed(0);
 
     const renderPrice = (
-        <Typography variant="h6" fontSize={15}>
+        <Typography variant="h6" fontSize={17}>
             <Typography
                 component="span"
                 variant="h6"
-                fontSize={15}
+                fontSize={17}
                 sx={{
                     color: 'text.disabled',
                     textDecoration: 'line-through',
                 }}
             >
-                ${product.price}
+                {product.discountPercentage > 0 ? '$' + product.price : ''}
             </Typography>
-            &nbsp; ${discountedPrice}
+            &nbsp;${discountedPrice}
         </Typography>
     );
 
@@ -64,7 +65,9 @@ export function ProductCard({ product }: { product: Product }) {
         <Card
             sx={{
                 borderRadius: 5,
-                backgroundColor: '#fff5f8',
+                color: '#fff',
+                background: '#fff',
+                boxShadow: 'rgba(145, 158, 171, 0.08) 0px 0px 2px 0px, rgba(145, 158, 171, 0.08) 0px 12px 24px -4px',
             }}
         >
             <Box sx={{ pt: '100%', position: 'relative' }}>
@@ -74,11 +77,11 @@ export function ProductCard({ product }: { product: Product }) {
             </Box>
 
             <Stack spacing={2} sx={{ p: 3 }}>
-                <Link color="inherit" underline="hover" variant="h4" noWrap fontSize={18} textTransform="capitalize">
+                <Link underline="hover" variant="h4" noWrap fontSize={15} textTransform="capitalize">
                     {product.title}
                 </Link>
 
-                <Stack direction="row" alignItems="center" justifyContent="space-between">
+                <Stack direction="row" alignItems="center" justifyContent="flex-end">
                     {renderPrice}
                 </Stack>
             </Stack>
