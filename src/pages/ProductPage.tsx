@@ -1,13 +1,15 @@
 import { Box, Container, Grid, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { ProductFilters, ProductSort, PublicFooter, PublicHeader } from '../components/layout';
-import { productsApi } from '../api';
-import { Product } from '../models';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { ProductCard } from '../components/common';
+import { ProductFilters, ProductSort, PublicFooter, PublicHeader } from '../components/layout';
+import { selectProductList } from '../features/product/productSlice';
+import { productThunk } from '../features/product/productThunk';
 
 export function ProductPage() {
     const [openFilter, setOpenFilter] = useState(false);
-    const [productList, setProductList] = useState<Product[]>([]);
+    const dispatch = useAppDispatch();
+    const productList = useAppSelector(selectProductList);
 
     const handleOpenFilter = () => {
         setOpenFilter(true);
@@ -18,15 +20,8 @@ export function ProductPage() {
     };
 
     useEffect(() => {
-        (async () => {
-            try {
-                const response = await productsApi.getAllProducts();
-                setProductList(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        })();
-    }, []);
+        dispatch(productThunk());
+    }, [dispatch]);
 
     return (
         <React.Fragment>

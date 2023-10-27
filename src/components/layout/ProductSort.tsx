@@ -20,12 +20,14 @@ const SORT_OPTIONS = [
 
 export function ProductSort() {
     const [open, setOpen] = useState(null);
+    const [selectedOpts, setSelectedOpts] = useState('Name');
 
     const handleOpen = (event: any) => {
         setOpen(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClick = (value: string) => {
+        setSelectedOpts(value);
         setOpen(null);
     };
 
@@ -40,14 +42,14 @@ export function ProductSort() {
             >
                 Sort By:&nbsp;
                 <Typography component="span" variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                    Name
+                    {selectedOpts}
                 </Typography>
             </Button>
 
             <Menu
                 open={!!open}
                 anchorEl={open}
-                onClose={handleClose}
+                onClose={() => handleClick(selectedOpts)}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                 slotProps={{
@@ -63,8 +65,8 @@ export function ProductSort() {
                 {SORT_OPTIONS.map((option) => (
                     <MenuItem
                         key={option.value}
-                        selected={option.value === 'name'}
-                        onClick={handleClose}
+                        selected={option.value === selectedOpts}
+                        onClick={() => handleClick(option.label)}
                         sx={{ fontSize: 14 }}
                     >
                         {option.label}
