@@ -1,16 +1,19 @@
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Radio from '@mui/material/Radio';
-import Button from '@mui/material/Button';
-import Drawer from '@mui/material/Drawer';
-import Rating from '@mui/material/Rating';
-import Divider from '@mui/material/Divider';
-import RadioGroup from '@mui/material/RadioGroup';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { useState } from 'react';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import IconButton from '@mui/material/IconButton';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../app/hooks';
+import { selectCategoryList } from '../../features/product/productSlice';
 import { FilterOptions } from '../../pages/ProductPage';
 
 // import Iconify from 'src/components/iconify';
@@ -24,7 +27,6 @@ export const SORT_OPTIONS = [
     { value: 'priceDesc', label: 'Price: High-Low' },
     { value: 'priceAsc', label: 'Price: Low-High' },
 ];
-export const CATEGORY_OPTIONS = ['All', 'Shose', 'Apparel', 'Accessories', 'some', 'thing', 'here'];
 export const PRICE_OPTIONS = [
     { value: 'all', label: 'All' },
     { value: 'below', label: 'Below $100' },
@@ -40,37 +42,126 @@ interface ProductFiltersProps {
     onChangeFilterOptions: (options: FilterOptions[]) => void;
 }
 
-export function ProductFilters({ openFilter, onOpenFilter, onCloseFilter }: ProductFiltersProps) {
-    const [value, setValue] = useState<number | null>(2);
+export function ProductFilters({
+    openFilter,
+    onOpenFilter,
+    onCloseFilter,
+    onChangeFilterOptions,
+}: ProductFiltersProps) {
+    const [selectedRating, setSelectedRating] = useState<number | null>(2); //Rating state
+    const [selectedCategory, setSelectedCategory] = useState('All'); //Select Category state
+    const [selectedPrice, setSelectedPrice] = useState('All');
+
+    const handleCategoryChange = (event: any) => {
+        // Handle Category Change
+        setSelectedCategory(event.target.value);
+    };
+
+    const handlePriceChange = (event: any) => {
+        // Handle Price Change
+        setSelectedPrice(event.target.value);
+    };
+
+    const handleRatingChange = (event: any) => {
+        // Handle Rating Change
+        setSelectedRating(Number(event.target.value));
+    };
+
+    useEffect(() => {
+        // Create an array to hold the filter options
+        const filterOptions = [];
+
+        // Handle category filter
+        if (selectedCategory !== 'All') {
+            filterOptions.push({
+                field: 'category',
+                operator: 'equals',
+                value: selectedCategory,
+            });
+        }
+
+        // Handle price filter
+        switch (selectedPrice) {
+            case 'below':
+                filterOptions.push({
+                    field: 'price',
+                    operator: 'lessThan',
+                    value: 100,
+                });
+                break;
+            case 'between':
+                filterOptions.push({
+                    field: 'price',
+                    operator: 'greaterThan',
+                    value: 100,
+                });
+                filterOptions.push({
+                    field: 'price',
+                    operator: 'lessThan',
+                    value: 500,
+                });
+                break;
+            case 'above':
+                filterOptions.push({
+                    field: 'price',
+                    operator: 'greaterThan',
+                    value: 500,
+                });
+                break;
+            default:
+                // Default to no price filter
+                break;
+        }
+
+        // Handle rating filter
+        if (selectedRating) {
+            filterOptions.push({
+                field: 'rating',
+                operator: 'greaterThan',
+                value: selectedRating,
+            });
+        }
+
+        // Pass the filter options to the callback function
+        onChangeFilterOptions(filterOptions);
+    }, [selectedRating, selectedCategory, selectedPrice]);
+
+    const categoryData = useAppSelector(selectCategoryList); // Select Category List from State
+
+    const categoryOpts = categoryData.map((item) => {
+        // Transform Data to UI
+        const words = item.title.split('-');
+        const capitalizedWords = words.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+        return capitalizedWords.join(' ');
+    });
+
+    const addAllOption = 'All';
+    categoryOpts.unshift(addAllOption); // Add All options
 
     const renderCategory = (
-        <Stack spacing={1}>
-            <Typography variant="subtitle2">Category</Typography>
-            <RadioGroup>
-                {CATEGORY_OPTIONS.map((item) => (
-                    <FormControlLabel
-                        key={item}
-                        value={item}
-                        control={
-                            <Radio
-                                sx={{
-                                    color: 'primary',
-                                    '&.Mui-checked': {
-                                        color: 'primary',
-                                    },
-                                }}
-                            />
-                        }
-                        label={item}
-                    />
-                ))}
-            </RadioGroup>
+        <Stack spacing={2}>
+            <FormControl fullWidth>
+                <InputLabel id="category-label">Category</InputLabel>
+                <Select
+                    labelId="category-label"
+                    id="category-select"
+                    value={selectedCategory}
+                    label="Category"
+                    onChange={handleCategoryChange}
+                >
+                    {categoryOpts.map((item) => (
+                        <MenuItem key={item} value={item}>
+                            {item}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
         </Stack>
     );
     const renderPrice = (
         <Stack spacing={1}>
             <Typography variant="subtitle2">Price</Typography>
-            <RadioGroup>
+            <RadioGroup onChange={handlePriceChange}>
                 {PRICE_OPTIONS.map((item) => (
                     <FormControlLabel key={item.value} value={item.value} control={<Radio />} label={item.label} />
                 ))}
@@ -81,13 +172,7 @@ export function ProductFilters({ openFilter, onOpenFilter, onCloseFilter }: Prod
     const renderRating = (
         <Stack spacing={1}>
             <Typography variant="subtitle2">Rating</Typography>
-            <Rating
-                name="simple-controlled"
-                value={value}
-                onChange={(event, newValue) => {
-                    setValue(newValue);
-                }}
-            />
+            <Rating name="simple-controlled" value={selectedRating} onChange={handleRatingChange} />
         </Stack>
     );
 
@@ -124,7 +209,6 @@ export function ProductFilters({ openFilter, onOpenFilter, onCloseFilter }: Prod
                     <Stack spacing={3} sx={{ p: 3 }}>
                         {renderCategory}
                         {renderPrice}
-
                         {renderRating}
                     </Stack>
                 </Box>

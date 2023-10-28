@@ -36,6 +36,7 @@ export function ProductPage() {
         setOpenFilter(false);
     };
 
+    console.log(filterOptions);
     //--------------------------------
 
     const handleFilter = (options: FilterOptions[]) => {
@@ -48,6 +49,7 @@ export function ProductPage() {
     useEffect(() => {
         let conditionList = [...data];
 
+        // SORT
         switch (sortOption) {
             case 'Name':
                 conditionList.sort((a, b) => a.title.localeCompare(b.title));
@@ -75,6 +77,42 @@ export function ProductPage() {
             default:
                 // Default to sorting by name
                 break;
+        }
+
+        // FILTER
+
+        // Apply filtering based on filterOptions
+        for (const filterOption of filterOptions) {
+            // Check if the field is "category"
+            if (filterOption.field === 'category' && typeof filterOption.value === 'string') {
+                // Modify the value for "category" field
+                filterOption.value = filterOption.value.replace(/ /g, '-').toLowerCase();
+            }
+
+            switch (filterOption.field) {
+                case 'category':
+                    if (filterOption.operator === 'equals') {
+                        conditionList = conditionList.filter((product) => product.category === filterOption.value);
+                    }
+                    // Add more cases for other operators as needed
+                    break;
+
+                case 'price':
+                    if (filterOption.operator === 'lessThan') {
+                        conditionList = conditionList.filter((product) => product.price <= Number(filterOption.value));
+                    } else if (filterOption.operator === 'greaterThan') {
+                        conditionList = conditionList.filter((product) => product.price >= Number(filterOption.value));
+                    }
+                    break;
+
+                case 'rating':
+                    conditionList = conditionList.filter((product) => product.rating >= Number(filterOption.value));
+                    break;
+                // Add cases for other fields (e.g., 'rating', 'other_field') as needed
+
+                default:
+                    break;
+            }
         }
 
         setProductList(conditionList);

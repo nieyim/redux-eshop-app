@@ -3,11 +3,15 @@ import { productsApi } from '../../api';
 
 export const productThunk = createAsyncThunk('product/fetchData', async () => {
     try {
-        const response = await productsApi.getAllProducts();
-        const data = response.data;
+        const productResponse = await productsApi.getAllProducts();
+        const productData = productResponse.data;
+
+        const categoryResponse = await productsApi.getAllCategory();
+        const categoryData = categoryResponse.data;
 
         return {
-            productList: data,
+            productList: productData,
+            categoryList: categoryData,
         };
     } catch (error: any) {
         return error.message;

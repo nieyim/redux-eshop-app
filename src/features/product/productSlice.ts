@@ -3,8 +3,6 @@ import { RootState } from '../../app/store';
 import { productThunk } from './productThunk';
 import { ProductState } from './models/productModels';
 
-
-
 const initialState: ProductState = {
     loading: false,
     error: '',
@@ -22,6 +20,7 @@ const initialState: ProductState = {
         thumbnail: '',
         images: [],
     },
+    categoryList: [],
 };
 
 export const productSlice = createSlice({
@@ -36,6 +35,7 @@ export const productSlice = createSlice({
             .addCase(productThunk.fulfilled, (state: ProductState, action) => {
                 state.loading = false;
                 state.productList = action.payload.productList;
+                state.categoryList = action.payload.categoryList;
             })
             .addCase(productThunk.rejected, (state: ProductState, action) => {
                 state.loading = false;
@@ -47,3 +47,4 @@ export const productSlice = createSlice({
 export default productSlice.reducer;
 export const selectIsLoading = (state: RootState) => state.product.loading;
 export const selectProductList = (state: RootState) => state.product.productList;
+export const selectCategoryList = (state: RootState) => state.product.categoryList;
