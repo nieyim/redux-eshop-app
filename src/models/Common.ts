@@ -14,3 +14,9 @@ export interface LoginPayload {
 export type IconMappings = {
     [key: string]: JSX.Element;
 };
+
+export interface ListParams {
+    _sort?: string;
+    _order?: 'asc' | 'desc';
+    _q?: string;
+}

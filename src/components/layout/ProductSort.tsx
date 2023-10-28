@@ -18,7 +18,11 @@ const SORT_OPTIONS = [
     { value: 'priceAsc', label: 'Price: Low-High' },
 ];
 
-export function ProductSort() {
+interface ProductSortProps {
+    onSort: (option: string) => void; // Define a function prop to handle sorting
+}
+
+export function ProductSort({ onSort }: ProductSortProps) {
     const [open, setOpen] = useState(null);
     const [selectedOpts, setSelectedOpts] = useState('Name');
 
@@ -29,6 +33,7 @@ export function ProductSort() {
     const handleClick = (value: string) => {
         setSelectedOpts(value);
         setOpen(null);
+        onSort(value);
     };
 
     return (

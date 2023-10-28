@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useState } from 'react';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { FilterOptions } from '../../pages/ProductPage';
 
 // import Iconify from 'src/components/iconify';
 // import Scrollbar from 'src/components/scrollbar';
@@ -32,8 +33,14 @@ export const PRICE_OPTIONS = [
 ];
 
 // ----------------------------------------------------------------------
+interface ProductFiltersProps {
+    openFilter: boolean;
+    onOpenFilter: () => void;
+    onCloseFilter: () => void;
+    onChangeFilterOptions: (options: FilterOptions[]) => void;
+}
 
-export function ProductFilters({ openFilter, onOpenFilter, onCloseFilter }: any) {
+export function ProductFilters({ openFilter, onOpenFilter, onCloseFilter }: ProductFiltersProps) {
     const [value, setValue] = useState<number | null>(2);
 
     const renderCategory = (
