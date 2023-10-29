@@ -2,7 +2,8 @@
 
 Welcome to the Redux E-commerce Shop Application! This project is a website built with React and Redux, developed during my internship at Bakco. It serves as a practical example of how Redux can be utilized to efficiently manage the state of a typical e-commerce website.
 
-![Screenshot](screenshot.png)
+## Preview
+<img src='https://github.com/nieyim/redux-eshop-app/blob/main/Screenshot.png'/>
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -62,6 +63,7 @@ Project is designed to provide a comprehensive and user-friendly shopping experi
 [MUI-url]: https://mui.com/
 [HookForm.com]: https://img.shields.io/badge/React_Hook_Form-ec5990?style=for-the-badge&logo=reacthookform&logoColor=white
 [HookForm-url]: https://react-hook-form.com/
+
 
 ## Installation
 
