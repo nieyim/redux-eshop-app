@@ -1,8 +1,8 @@
-import { Box, Container, Grid, LinearProgress, Stack } from '@mui/material';
+import { Box, Container, Grid, LinearProgress, Stack, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { ProductCard } from '../components/common';
-import { ProductFilters, ProductSort, PublicFooter, PublicHeader } from '../components/layout';
+import { ProductFilters, ProductSearch, ProductSort, PublicFooter, PublicHeader } from '../components/layout';
 import { selectIsLoading, selectProductList } from '../features/product/productSlice';
 import { productThunk } from '../features/product/productThunk';
 import { Product } from '../models';
@@ -15,19 +15,17 @@ export interface FilterOptions {
 export function ProductPage() {
     const dispatch = useAppDispatch();
     const data = useAppSelector(selectProductList);
-    const [productList, setProductList] = useState<Product[]>(data);
-    const [openFilter, setOpenFilter] = useState(false);
     const loading = useAppSelector(selectIsLoading);
 
-    // Filter state
-    const [filterOptions, setFilterOptions] = useState<FilterOptions[]>([]);
+    const [productList, setProductList] = useState<Product[]>(data); // ProductList State
+    const [openFilter, setOpenFilter] = useState(false); // FilterDrawer State
+    const [filterOptions, setFilterOptions] = useState<FilterOptions[]>([]); // Filter State
+    const [sortOption, setSortOption] = useState('Name'); // Sort State
+    const [searchText, setSearchText] = useState(''); // Search State
 
-    // Sort state
-    const [sortOption, setSortOption] = useState('Name');
+    //--------------------------
 
-    // Search state
-    const [searchText, setSearchText] = useState('');
-
+    // Handle Open/Close Drawer Filter
     const handleOpenFilter = () => {
         setOpenFilter(true);
     };
@@ -36,18 +34,27 @@ export function ProductPage() {
         setOpenFilter(false);
     };
 
-    console.log(filterOptions);
-    //--------------------------------
-
+    // Handle Change Filter,Sort,Search Options
     const handleFilter = (options: FilterOptions[]) => {
         setFilterOptions(options);
     };
     const handleSort = (options: string) => {
         setSortOption(options);
     };
+    const handleSearch = (options: string) => {
+        setSearchText(options);
+    };
 
+    // ---------------------- useEffect To Render When Change Options
     useEffect(() => {
         let conditionList = [...data];
+
+        // SEARCH
+        if (searchText) {
+            conditionList = conditionList.filter((product) =>
+                product.title.toLowerCase().includes(searchText.toLowerCase()),
+            );
+        }
 
         // SORT
         switch (sortOption) {
@@ -75,13 +82,10 @@ export function ProductPage() {
                 });
                 break;
             default:
-                // Default to sorting by name
                 break;
         }
 
         // FILTER
-
-        // Apply filtering based on filterOptions
         for (const filterOption of filterOptions) {
             // Check if the field is "category"
             if (filterOption.field === 'category' && typeof filterOption.value === 'string') {
@@ -94,9 +98,7 @@ export function ProductPage() {
                     if (filterOption.operator === 'equals') {
                         conditionList = conditionList.filter((product) => product.category === filterOption.value);
                     }
-                    // Add more cases for other operators as needed
                     break;
-
                 case 'price':
                     if (filterOption.operator === 'lessThan') {
                         conditionList = conditionList.filter((product) => product.price <= Number(filterOption.value));
@@ -104,19 +106,16 @@ export function ProductPage() {
                         conditionList = conditionList.filter((product) => product.price >= Number(filterOption.value));
                     }
                     break;
-
                 case 'rating':
                     conditionList = conditionList.filter((product) => product.rating >= Number(filterOption.value));
                     break;
-                // Add cases for other fields (e.g., 'rating', 'other_field') as needed
-
                 default:
                     break;
             }
         }
 
         setProductList(conditionList);
-    }, [data, sortOption, filterOptions]);
+    }, [data, sortOption, filterOptions, searchText]);
 
     useEffect(() => {
         dispatch(productThunk());
@@ -134,7 +133,8 @@ export function ProductPage() {
                         justifyContent="flex-end"
                         sx={{ mb: 5 }}
                     >
-                        <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
+                        <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} flexShrink={0} sx={{ my: 1 }}>
+                            <ProductSearch onSearch={handleSearch} />
                             <ProductFilters
                                 openFilter={openFilter}
                                 onOpenFilter={handleOpenFilter}
@@ -148,6 +148,10 @@ export function ProductPage() {
                     <Grid container spacing={3}>
                         {loading ? (
                             <LinearProgress color="secondary" />
+                        ) : productList.length === 0 ? ( // Check if productList is empty
+                            <Typography variant="h6" sx={{ m: 10 }}>
+                                No products found matching your criteria.
+                            </Typography>
                         ) : (
                             productList.map((product) => (
                                 <Grid item key={product.id} xs={12} sm={6} md={3}>

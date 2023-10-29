@@ -12,4 +12,4 @@ export * from './AdminProductList';
 export * from './AdminAddEditProduct';
 export * from './ProductFilters';
 export * from './ProductSort';
-
+export * from './ProductSearch';

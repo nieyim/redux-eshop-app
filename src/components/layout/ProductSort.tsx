@@ -43,7 +43,12 @@ export function ProductSort({ onSort }: ProductSortProps) {
                 color="inherit"
                 onClick={handleOpen}
                 endIcon={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                sx={{ textTransform: 'capitalize' }}
+                sx={{
+                    textTransform: 'capitalize',
+                    '&.MuiButtonBase-root:hover': {
+                        bgcolor: 'transparent',
+                    },
+                }}
             >
                 Sort By:&nbsp;
                 <Typography component="span" variant="subtitle2" sx={{ color: 'text.secondary' }}>

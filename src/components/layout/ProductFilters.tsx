@@ -50,7 +50,7 @@ export function ProductFilters({
 }: ProductFiltersProps) {
     const [selectedRating, setSelectedRating] = useState<number | null>(2); //Rating state
     const [selectedCategory, setSelectedCategory] = useState('All'); //Select Category state
-    const [selectedPrice, setSelectedPrice] = useState('All');
+    const [selectedPrice, setSelectedPrice] = useState('all');
 
     const handleCategoryChange = (event: any) => {
         // Handle Category Change
@@ -65,6 +65,12 @@ export function ProductFilters({
     const handleRatingChange = (event: any) => {
         // Handle Rating Change
         setSelectedRating(Number(event.target.value));
+    };
+
+    const handleClear = () => {
+        setSelectedCategory('All');
+        setSelectedPrice('all');
+        setSelectedRating(2);
     };
 
     useEffect(() => {
@@ -127,7 +133,6 @@ export function ProductFilters({
     }, [selectedRating, selectedCategory, selectedPrice]);
 
     const categoryData = useAppSelector(selectCategoryList); // Select Category List from State
-
     const categoryOpts = categoryData.map((item) => {
         // Transform Data to UI
         const words = item.title.split('-');
@@ -161,7 +166,7 @@ export function ProductFilters({
     const renderPrice = (
         <Stack spacing={1}>
             <Typography variant="subtitle2">Price</Typography>
-            <RadioGroup onChange={handlePriceChange}>
+            <RadioGroup value={selectedPrice} onChange={handlePriceChange}>
                 {PRICE_OPTIONS.map((item) => (
                     <FormControlLabel key={item.value} value={item.value} control={<Radio />} label={item.label} />
                 ))}
@@ -183,7 +188,12 @@ export function ProductFilters({
                 disableRipple
                 color="inherit"
                 onClick={onOpenFilter}
-                sx={{ textTransform: 'capitalize' }}
+                sx={{
+                    textTransform: 'capitalize',
+                    '&.MuiButtonBase-root:hover': {
+                        bgcolor: 'transparent',
+                    },
+                }}
             >
                 Filters&nbsp;
             </Button>
@@ -214,7 +224,7 @@ export function ProductFilters({
                 </Box>
 
                 <Box sx={{ p: 3 }}>
-                    <Button fullWidth size="large" type="submit" color="inherit" variant="outlined">
+                    <Button fullWidth size="large" onClick={handleClear} color="inherit" variant="outlined">
                         Clear All
                     </Button>
                 </Box>

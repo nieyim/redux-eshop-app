@@ -5,4 +5,4 @@ export * from './CategoryChart';
 export * from './StatisticItems';
 export * from './TopPriceChart';
 export * from './ProductCard';
-
+export * from './SearchBar';
