@@ -5,4 +5,6 @@ export interface Post {
     userId: number;
     tags: string[];
     reactions: number;
+    thumbnail: string;
+    createdAt: number;
 }

@@ -13,3 +13,4 @@ export * from './AdminAddEditProduct';
 export * from './ProductFilters';
 export * from './ProductSort';
 export * from './ProductSearch';
+export * from './BlogHightlight';

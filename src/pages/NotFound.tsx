@@ -52,7 +52,7 @@ export function NotFound() {
                                     <ArrowBackIcon />
                                 </SvgIcon>
                             }
-                            sx={{ mt: 3 }}
+                            sx={{ mt: 3, mb: 3 }}
                             variant="contained"
                             color="secondary"
                         >

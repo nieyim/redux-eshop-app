@@ -56,24 +56,32 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
     },
 }));
 
-function generateRandomWidthArray() {
-    const width = [];
-    let remainingPercentage = 100;
+function generateRandomWidthArray(total: number) {
+    const width: string[] = [];
+    let remainingPercentage: number = 100;
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < total; i++) {
         if (i % 3 === 0) {
-            // If it's a multiple of 3, set a random value between 30% and 70%
-            const randomWidth = Math.floor(Math.random() * (70 - 30 + 1) + 30);
-            width.push(`${randomWidth}%`);
+            if (i === total - 1) {
+                width.push(remainingPercentage + '%');
+                break;
+            }
+            // If it's a multiple of 3, set a random value between 20% and 60%
+            const randomWidth = Math.floor(Math.random() * (60 - 20 + 1) + 20);
+            width.push(randomWidth + '%');
             remainingPercentage -= randomWidth;
         } else if (i % 3 === 1) {
+            if (i === total - 1) {
+                width.push(remainingPercentage + '%');
+                break;
+            }
             // If it's one more than a multiple of 3, set a random value between 10% and 90%, clamped to remain within 10% and 110%
-            const randomWidth = Math.floor(Math.random() * (remainingPercentage - 10 - 10 + 1) + 10);
+            const randomWidth = Math.floor(Math.random() * (remainingPercentage - 20 - 20 + 1) + 20);
             remainingPercentage -= randomWidth;
-            width.push(`${randomWidth}%`);
+            width.push(randomWidth + '%');
         } else {
             // If it's two more than a multiple of 3, set the remaining percentage
-            width.push(`${remainingPercentage}%`);
+            width.push(remainingPercentage + '%');
         }
         if (i % 3 === 2) {
             remainingPercentage = 100;
@@ -81,29 +89,6 @@ function generateRandomWidthArray() {
     }
     return width;
 }
-
-const width = [
-    '40%',
-    '20%',
-    '40%',
-    '38%',
-    '38%',
-    '24%',
-    '40%',
-    '20%',
-    '40%',
-    '40%',
-    '20%',
-    '40%',
-    '38%',
-    '38%',
-    '24%',
-    '40%',
-    '20%',
-    '40%',
-    '50%',
-    '50%',
-];
 
 export function ProductCategories() {
     const [categoryList, setCategoryList] = useState<Category[]>([]);
@@ -119,6 +104,8 @@ export function ProductCategories() {
             }
         })();
     }, []);
+
+    const width = generateRandomWidthArray(categoryList.length);
 
     return (
         <Container component="section" sx={{ mt: 8, mb: 4 }}>

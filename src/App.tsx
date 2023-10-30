@@ -9,7 +9,16 @@ import { ThemeProvider } from '@mui/material/styles';
 // import { useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { AdminProductPage, DashboardPage, HomePage, LoginPage, NotFound, ProductPage, RegisterPage } from './pages';
+import {
+    AdminProductPage,
+    BlogPage,
+    DashboardPage,
+    HomePage,
+    LoginPage,
+    NotFound,
+    ProductPage,
+    RegisterPage,
+} from './pages';
 import { AdminPage } from './pages/AdminPage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import theme from './utils/theme';
@@ -25,6 +34,7 @@ function App() {
                 <Route path="/products" element={<ProductPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/blogs" element={<BlogPage />} />
                 <Route element={<PrivateRoute />}>
                     <Route path="/admin" element={<AdminPage />}>
                         <Route path="/admin/dashboard" element={<DashboardPage />} />
