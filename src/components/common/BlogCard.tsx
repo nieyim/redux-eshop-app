@@ -22,9 +22,22 @@ export function BlogCard(props: BlogCardProps) {
     });
 
     return (
-        <Card sx={{ borderRadius: '0px' }}>
+        <Card
+            sx={{
+                borderRadius: '0px',
+                boxShadow: 'rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px',
+            }}
+        >
             <CardActionArea>
-                <CardMedia component="img" image={blog.thumbnail} alt="green iguana" />
+                <CardMedia
+                    component="img"
+                    image={blog.thumbnail}
+                    alt="green iguana"
+                    sx={{
+                        transition: 'transform 0.15s ease-in-out',
+                        '&:hover': { transform: 'scale3d(1.05, 1.05, 1)' },
+                    }}
+                />
                 <CardContent>
                     <Typography variant="caption" color="text.info">
                         {formattedCreatedAt} {/* Display the formatted createdAt */}

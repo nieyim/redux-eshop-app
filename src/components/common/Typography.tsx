@@ -58,7 +58,7 @@ const styles = ({ theme }: { theme: Theme }) => ({
         width: 28,
         display: 'block',
         marginTop: theme.spacing(0.5),
-        background: 'currentColor',
+        background: theme.palette.secondary.main,
     },
 });
 

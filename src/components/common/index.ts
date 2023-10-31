@@ -8,3 +8,4 @@ export * from './ProductCard';
 export * from './SearchBar';
 export * from './CustomLabel';
 export * from './BlogCard';
+export * from './BlogItem';

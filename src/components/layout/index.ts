@@ -14,3 +14,5 @@ export * from './ProductFilters';
 export * from './ProductSort';
 export * from './ProductSearch';
 export * from './BlogHightlight';
+export * from './RecentBlog';
+export * from './SocialMedia';

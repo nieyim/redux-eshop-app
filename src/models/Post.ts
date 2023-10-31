@@ -1,3 +1,5 @@
+import { User } from './User';
+
 export interface Post {
     id: number;
     title: string;
@@ -7,4 +9,5 @@ export interface Post {
     reactions: number;
     thumbnail: string;
     createdAt: number;
+    user: User;
 }
