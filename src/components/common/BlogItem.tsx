@@ -9,12 +9,15 @@ import {
     CardContent,
     CardHeader,
     CardMedia,
+    Chip,
     IconButton,
+    Stack,
     Typography,
 } from '@mui/material';
 import { green } from '@mui/material/colors';
 import { useState } from 'react';
 import { Post } from '../../models';
+import { formatDateTime } from '../../utils/toDate';
 
 // Define the BlogItem component
 interface BlogItemProps {
@@ -29,17 +32,7 @@ export function BlogItem(props: BlogItemProps) {
         setLove(!love);
     };
 
-    // Convert the createdAt timestamp to a Date object
-    const createdAtDate = new Date(blog.createdAt);
-
-    // Format the date and time as a string
-    const formattedCreatedAt = createdAtDate.toLocaleString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-    });
+    const formattedCreatedAt = formatDateTime(blog.createdAt);
 
     return (
         <Card
@@ -84,11 +77,16 @@ export function BlogItem(props: BlogItemProps) {
             </CardActionArea>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites" onClick={handleLike}>
-                    <FavoriteIcon color={love ? 'error' : 'primary'} />
+                    <FavoriteIcon color={love ? 'error' : 'inherit'} />
                 </IconButton>
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
+                <Stack direction="row" sx={{ ml: 'auto' }} spacing={1}>
+                    {blog.tags.map((tag) => (
+                        <Chip key={tag} label={tag} size="small" variant="outlined" />
+                    ))}
+                </Stack>
             </CardActions>
         </Card>
     );
