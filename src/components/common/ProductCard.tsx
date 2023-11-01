@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Product } from '../../models';
 import { CustomLabel } from './CustomLabel';
+import { CardActionArea } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -55,7 +56,7 @@ export function ProductCard({ product }: { product: Product }) {
                 boxShadow: 'rgba(145, 158, 171, 0.08) 0px 0px 2px 0px, rgba(145, 158, 171, 0.08) 0px 12px 24px -4px',
             }}
         >
-            <Link href="/home" underline="none">
+            <CardActionArea>
                 <Box sx={{ pt: '100%', position: 'relative' }}>
                     {product.discountPercentage > 0 && renderStatus}
 
@@ -71,7 +72,7 @@ export function ProductCard({ product }: { product: Product }) {
                         {renderPrice}
                     </Stack>
                 </Stack>
-            </Link>
+            </CardActionArea>
         </Card>
     );
 }

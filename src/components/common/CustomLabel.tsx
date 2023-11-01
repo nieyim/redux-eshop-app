@@ -1,7 +1,7 @@
 import { Paper, PaperProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const CustomLabel = styled(Paper)<PaperProps>(() => ({
+export const CustomLabel = styled(Paper)<PaperProps>((theme) => ({
     zIndex: 1,
     top: 16,
     right: 16,
@@ -20,4 +20,5 @@ export const CustomLabel = styled(Paper)<PaperProps>(() => ({
     whiteSpace: 'nowrap',
     display: 'inline-flex',
     justifyContent: 'center',
+    fontFamily: 'Work Sans',
 }));
