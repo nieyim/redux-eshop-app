@@ -18,7 +18,7 @@ export function BlogPage() {
     const blogList = useAppSelector(selectBlogList);
     const blogListHightlight = blogList.slice(0, 2);
     const blogRecent = blogList.slice(2, 6);
-    const blogPopular = blogList.slice(2, 6);
+    const blogPopular = blogList.slice(4, 8);
 
     const allTags: string[] = blogList.flatMap((post) => post.tags);
     const tagCounts = allTags.reduce((counts: any, tag) => {
