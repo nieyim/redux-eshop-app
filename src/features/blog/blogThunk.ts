@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { postApi, userApi } from '../../api';
 import { User } from '../../models';
 
-export const blogThunk = createAsyncThunk('product/fetchData', async () => {
+export const blogThunk = createAsyncThunk('blog/fetchData', async () => {
     try {
         const blogResponse = await postApi.getAll();
         const blogData = blogResponse.data;

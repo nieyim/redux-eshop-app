@@ -2,6 +2,7 @@ import { Container, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
 import {
     BlogHightlight,
+    BlogMain,
     BlogTag,
     PopularBlog,
     PublicFooter,
@@ -41,6 +42,7 @@ export function BlogPage() {
                 <Grid container spacing={4}>
                     <Grid item xs={12} md={8}>
                         <RecentBlog post={blogRecent} />
+                        <BlogMain />
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <SocialMedia />

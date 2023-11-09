@@ -9,8 +9,8 @@ const initialState: BlogState = {
     postList: [],
 };
 
-export const productSlice = createSlice({
-    name: 'product',
+export const blogSlice = createSlice({
+    name: 'blog',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
@@ -29,6 +29,6 @@ export const productSlice = createSlice({
     },
 });
 
-export default productSlice.reducer;
+export default blogSlice.reducer;
 export const selectIsLoading = (state: RootState) => state.blog.loading;
 export const selectBlogList = (state: RootState) => state.blog.postList;

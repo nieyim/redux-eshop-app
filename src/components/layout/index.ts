@@ -18,3 +18,4 @@ export * from './RecentBlog';
 export * from './SocialMedia';
 export * from './BlogTags';
 export * from './PopularBlog';
+export * from './BlogMain';
