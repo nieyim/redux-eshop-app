@@ -13,23 +13,33 @@ import {
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectBlogList } from '../features/blog/blogSlice';
 import { blogThunk } from '../features/blog/blogThunk';
+import { Post } from '../models';
 
 export function BlogPage() {
     const dispatch = useAppDispatch();
     const blogList = useAppSelector(selectBlogList);
-    const blogListHightlight = blogList.slice(0, 2);
     const blogRecent = blogList.slice(2, 6);
     const blogPopular = blogList.slice(6, 12);
 
+    // Blog Hightlight
+    const shuffleBlog = (blog: Post[]) => {
+        for (let i = blog.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [blog[i], blog[j]] = [blog[j], blog[i]];
+        }
+        return blog;
+    };
+    const blogListHightlight = shuffleBlog([...blogList]).slice(0, 2);
+
+    // Tags
     const allTags: string[] = blogList.flatMap((post) => post.tags);
     const tagCounts = allTags.reduce((counts: any, tag) => {
         counts[tag] = (counts[tag] || 0) + 1;
         return counts;
     }, {});
-
     const uniqueTags: string[] = Object.keys(tagCounts).filter((tag) => tagCounts[tag] > 1);
-    console.log(uniqueTags);
 
+    // Fetch
     useEffect(() => {
         dispatch(blogThunk());
     }, [dispatch]);
@@ -42,7 +52,7 @@ export function BlogPage() {
                 <Grid container spacing={4}>
                     <Grid item xs={12} md={8}>
                         <RecentBlog post={blogRecent} />
-                        <BlogMain />
+                        <BlogMain post={blogList} />
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <SocialMedia />

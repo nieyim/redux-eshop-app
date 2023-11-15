@@ -1,7 +1,6 @@
-import { Card, CardContent, CardMedia, Divider, Grid, Link } from '@mui/material';
+import { Card, CardContent, CardMedia, Divider, Grid, Link, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { Post } from '../../models';
-import { formatDateTime } from '../../utils/toDate';
 import Typography from '../common/Typography';
 
 interface PopularBlogProps {
@@ -10,6 +9,8 @@ interface PopularBlogProps {
 
 export function PopularBlog(props: PopularBlogProps) {
     const { blog } = props;
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <React.Fragment>
@@ -19,14 +20,21 @@ export function PopularBlog(props: PopularBlogProps) {
             <Grid container spacing={3}>
                 {blog.map((post) => (
                     <Grid item key={post.id} xs={12}>
-                        <Card sx={{ display: 'flex', borderRadius: '0px', boxShadow: 'none', height: 100 }}>
+                        <Card
+                            sx={{
+                                display: 'flex',
+                                borderRadius: '0px',
+                                boxShadow: 'none',
+                                height: isSmallScreen ? 150 : 100,
+                            }}
+                        >
                             <CardMedia
                                 component="img"
                                 sx={{ width: 151 }}
                                 image={post.thumbnail}
                                 alt="Live from space album cover"
                             />
-                            <CardContent sx={{ pt: 0 }}>
+                            <CardContent sx={{ display: 'flex' }}>
                                 <Link
                                     underline="none"
                                     variant="h4"
@@ -36,9 +44,6 @@ export function PopularBlog(props: PopularBlogProps) {
                                 >
                                     {post.title}
                                 </Link>
-                                <Typography variant="body2" sx={{ pt: 1 }}>
-                                    {formatDateTime(post.createdAt)}
-                                </Typography>
                             </CardContent>
                         </Card>
                         <Divider sx={{ mt: 3 }} />
