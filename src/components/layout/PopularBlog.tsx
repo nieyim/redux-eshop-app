@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Divider, Grid, Link, useMediaQuery, useTheme } from '@mui/material';
+import { Card, CardContent, CardMedia, Divider, Grid, Link } from '@mui/material';
 import React from 'react';
 import { Post } from '../../models';
 import Typography from '../common/Typography';
@@ -9,8 +9,6 @@ interface PopularBlogProps {
 
 export function PopularBlog(props: PopularBlogProps) {
     const { blog } = props;
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <React.Fragment>
@@ -25,16 +23,11 @@ export function PopularBlog(props: PopularBlogProps) {
                                 display: 'flex',
                                 borderRadius: '0px',
                                 boxShadow: 'none',
-                                height: isSmallScreen ? 150 : 100,
+                                height: 150,
                             }}
                         >
-                            <CardMedia
-                                component="img"
-                                sx={{ width: 151 }}
-                                image={post.thumbnail}
-                                alt="Live from space album cover"
-                            />
-                            <CardContent sx={{ display: 'flex' }}>
+                            <CardMedia component="img" sx={{ width: 151 }} image={post.thumbnail} alt="Blog Image" />
+                            <CardContent sx={{ display: 'flex', alignItems: 'center', py: 0 }}>
                                 <Link
                                     underline="none"
                                     variant="h4"

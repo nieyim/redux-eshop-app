@@ -11,6 +11,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import {
     AdminProductPage,
+    BlogDetail,
     BlogPage,
     DashboardPage,
     HomePage,
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/blogs" element={<BlogPage />} />
+                <Route path="/blogs/:blogID" element={<BlogDetail />} />
                 <Route element={<PrivateRoute />}>
                     <Route path="/admin" element={<AdminPage />}>
                         <Route path="/admin/dashboard" element={<DashboardPage />} />

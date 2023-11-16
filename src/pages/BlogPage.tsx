@@ -1,5 +1,6 @@
 import { Container, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
     BlogHightlight,
     BlogMain,
@@ -10,7 +11,6 @@ import {
     RecentBlog,
     SocialMedia,
 } from '../components/layout';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectBlogList } from '../features/blog/blogSlice';
 import { blogThunk } from '../features/blog/blogThunk';
 import { Post } from '../models';
@@ -18,8 +18,8 @@ import { Post } from '../models';
 export function BlogPage() {
     const dispatch = useAppDispatch();
     const blogList = useAppSelector(selectBlogList);
-    const blogRecent = blogList.slice(2, 6);
-    const blogPopular = blogList.slice(6, 12);
+    const blogRecent = [...blogList].sort((a, b) => b.createdAt - a.createdAt).slice(0, 4);
+    const blogPopular = [...blogList].sort((a, b) => b.reactions - a.reactions).slice(0, 5);
 
     // Blog Hightlight
     const shuffleBlog = (blog: Post[]) => {
@@ -31,13 +31,21 @@ export function BlogPage() {
     };
     const blogListHightlight = shuffleBlog([...blogList]).slice(0, 2);
 
-    // Tags
-    const allTags: string[] = blogList.flatMap((post) => post.tags);
-    const tagCounts = allTags.reduce((counts: any, tag) => {
-        counts[tag] = (counts[tag] || 0) + 1;
-        return counts;
-    }, {});
-    const uniqueTags: string[] = Object.keys(tagCounts).filter((tag) => tagCounts[tag] > 1);
+    //Tags
+    const tagCount: { [tagName: string]: number } = {};
+    blogList.forEach((post) => {
+        post.tags.forEach((tag) => {
+            tagCount[tag] = (tagCount[tag] || 0) + 1;
+        });
+    });
+
+    const tagsWithCount = Object.keys(tagCount).map((tag) => ({
+        tagName: tag,
+        count: tagCount[tag],
+    }));
+
+    const uniqueTags = tagsWithCount.filter((tag) => tag.count > 1);
+    const popularTags = [...uniqueTags].sort((a, b) => b.count - a.count);
 
     // Fetch
     useEffect(() => {
@@ -56,7 +64,7 @@ export function BlogPage() {
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <SocialMedia />
-                        <BlogTag tags={uniqueTags} />
+                        <BlogTag tagList={popularTags} />
                         <PopularBlog blog={blogPopular} />
                     </Grid>
                 </Grid>

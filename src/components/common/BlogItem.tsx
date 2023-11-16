@@ -1,5 +1,5 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import FlagIcon from '@mui/icons-material/Flag';
 import ShareIcon from '@mui/icons-material/Share';
 import {
     Avatar,
@@ -9,9 +9,8 @@ import {
     CardContent,
     CardHeader,
     CardMedia,
-    Chip,
     IconButton,
-    Stack,
+    Tooltip,
     Typography,
 } from '@mui/material';
 import { green } from '@mui/material/colors';
@@ -47,16 +46,12 @@ export function BlogItem(props: BlogItemProps) {
         >
             <CardHeader
                 avatar={<Avatar sx={{ bgcolor: green[400] }} aria-label="recipe" src={blog.user.image}></Avatar>}
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
                 title={blog.user.firstName + ' ' + blog.user.lastName}
                 subheader={formattedCreatedAt}
             />
             <CardActionArea
                 sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flexGrow: 1 }}
+                href={`/blogs/${blog.id}`}
             >
                 <CardMedia
                     component="img"
@@ -75,18 +70,22 @@ export function BlogItem(props: BlogItemProps) {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites" onClick={handleLike}>
-                    <FavoriteIcon color={love ? 'error' : 'inherit'} />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton>
-                <Stack direction="row" sx={{ ml: 'auto' }} spacing={1}>
-                    {blog.tags.map((tag) => (
-                        <Chip key={tag} label={tag} size="small" variant="outlined" />
-                    ))}
-                </Stack>
+            <CardActions disableSpacing sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Tooltip title="Like">
+                    <IconButton aria-label="add to favorites" onClick={handleLike}>
+                        <FavoriteIcon color={love ? 'error' : 'inherit'} />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Share">
+                    <IconButton aria-label="share">
+                        <ShareIcon />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Report">
+                    <IconButton aria-label="report">
+                        <FlagIcon />
+                    </IconButton>
+                </Tooltip>
             </CardActions>
         </Card>
     );

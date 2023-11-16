@@ -3,11 +3,14 @@ import React from 'react';
 import Typography from '../common/Typography';
 
 interface BlogTagProps {
-    tags: string[];
+    tagList: {
+        tagName: string;
+        count: number;
+    }[];
 }
 
 export function BlogTag(props: BlogTagProps) {
-    const { tags } = props;
+    const { tagList } = props;
 
     return (
         <React.Fragment>
@@ -16,8 +19,8 @@ export function BlogTag(props: BlogTagProps) {
             </Typography>
             <Stack direction="column">
                 <List disablePadding>
-                    {tags.map((tag) => (
-                        <ListItem disablePadding key={tag}>
+                    {tagList.map((tag) => (
+                        <ListItem disablePadding key={tag.tagName}>
                             <ListItemButton
                                 divider
                                 component="a"
@@ -29,10 +32,15 @@ export function BlogTag(props: BlogTagProps) {
                                             color: 'red', // Change typography color to red on hover
                                         },
                                     },
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
                                 }}
                             >
-                                <Typography variant="h6" fontSize={16}>
-                                    {tag}
+                                <Typography variant="h6" fontSize={16} display="flex">
+                                    {tag.tagName}
+                                </Typography>
+                                <Typography variant="h6" fontSize={16} display="flex" color="#97989b">
+                                    {tag.count}
                                 </Typography>
                             </ListItemButton>
                         </ListItem>

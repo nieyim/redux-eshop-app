@@ -1,4 +1,14 @@
-import { Box, Card, CardContent, CardMedia, Link, Stack, Typography, useMediaQuery } from '@mui/material';
+import {
+    Box,
+    Card,
+    CardActionArea,
+    CardContent,
+    CardMedia,
+    Link,
+    Stack,
+    Typography,
+    useMediaQuery,
+} from '@mui/material';
 import { Post } from '../../models';
 import { formatDateTime } from '../../utils/toDate';
 import { CustomLabel } from './CustomLabel';
@@ -21,20 +31,24 @@ export function BlogMainItem(props: BlogMainItemProps) {
                 height: '100%',
                 borderRadius: '0px',
                 boxShadow: 'none',
-                minHeight: isSmallScreen ? 150 : 200,
+                minHeight: 200,
+                flexDirection: isSmallScreen ? 'column' : 'row',
             }}
         >
             {/* Left side with CardMedia */}
-            <CardMedia
-                component="img"
-                sx={{ width: '40%', flexShrink: 0, objectFit: 'cover', height: '100%' }}
-                alt="Blog Image"
-                image={blog.thumbnail} // Replace with your image URL
-            />
+            <CardActionArea sx={{ width: isSmallScreen ? '100%' : '40%', flexShrink: 0 }}>
+                <CardMedia
+                    component="img"
+                    sx={{ objectFit: 'cover', height: '100%' }}
+                    alt="Blog Image"
+                    image={blog.thumbnail} // Replace with your image URL
+                />
+            </CardActionArea>
+
             {/* Right side with CardContent */}
             <CardContent
                 sx={{
-                    width: '60%',
+                    width: isSmallScreen ? '100%' : '60%',
                     display: 'flex',
                     flexDirection: 'column',
                     overflow: 'hidden',
@@ -55,11 +69,20 @@ export function BlogMainItem(props: BlogMainItemProps) {
                             </CustomLabel>
                         ))}
                     </Stack>
-                    <Typography variant="body2">{formattedCreatedAt}</Typography>
+                    <Typography variant="body2" sx={{ ml: 1 }}>
+                        {formattedCreatedAt}
+                    </Typography>
                 </Box>
 
                 {/* Second row with blog title */}
-                <Link underline="none" variant="h4" fontSize={18} href="#" sx={{ '&:hover': { color: 'red' } }}>
+                <Link
+                    underline="none"
+                    variant="h4"
+                    fontSize={18}
+                    href="#"
+                    sx={{ '&:hover': { color: 'red' } }}
+                    textAlign={isSmallScreen ? 'center' : 'left'}
+                >
                     {blog.title}
                 </Link>
 
