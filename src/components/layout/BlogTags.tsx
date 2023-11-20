@@ -7,10 +7,14 @@ interface BlogTagProps {
         tagName: string;
         count: number;
     }[];
+    onClick: (option: string) => void;
 }
 
 export function BlogTag(props: BlogTagProps) {
     const { tagList } = props;
+    const handleTagsChange = (selectedTag: string) => {
+        props.onClick(selectedTag);
+    };
 
     return (
         <React.Fragment>
@@ -24,7 +28,6 @@ export function BlogTag(props: BlogTagProps) {
                             <ListItemButton
                                 divider
                                 component="a"
-                                href="#simple-list"
                                 sx={{
                                     '&:hover': {
                                         backgroundColor: '#fff', // Set hover background to "none"
@@ -35,6 +38,7 @@ export function BlogTag(props: BlogTagProps) {
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                 }}
+                                onClick={() => handleTagsChange(tag.tagName)}
                             >
                                 <Typography variant="h6" fontSize={16} display="flex">
                                     {tag.tagName}

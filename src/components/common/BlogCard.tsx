@@ -31,7 +31,7 @@ export function BlogCard(props: BlogCardProps) {
                 height: '100%', // Set the card height to 100% of its container
             }}
         >
-            <CardActionArea>
+            <CardActionArea href={`/blogs/${blog.id}`}>
                 <CardMedia
                     component="img"
                     image={blog.thumbnail}

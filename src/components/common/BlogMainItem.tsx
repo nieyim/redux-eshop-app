@@ -36,7 +36,7 @@ export function BlogMainItem(props: BlogMainItemProps) {
             }}
         >
             {/* Left side with CardMedia */}
-            <CardActionArea sx={{ width: isSmallScreen ? '100%' : '40%', flexShrink: 0 }}>
+            <CardActionArea sx={{ width: isSmallScreen ? '100%' : '40%', flexShrink: 0 }} href={`/blogs/${blog.id}`}>
                 <CardMedia
                     component="img"
                     sx={{ objectFit: 'cover', height: '100%' }}
@@ -79,7 +79,7 @@ export function BlogMainItem(props: BlogMainItemProps) {
                     underline="none"
                     variant="h4"
                     fontSize={18}
-                    href="#"
+                    href={`/blogs/${blog.id}`}
                     sx={{ '&:hover': { color: 'red' } }}
                     textAlign={isSmallScreen ? 'center' : 'left'}
                 >

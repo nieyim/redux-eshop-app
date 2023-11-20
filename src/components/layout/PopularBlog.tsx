@@ -32,7 +32,7 @@ export function PopularBlog(props: PopularBlogProps) {
                                     underline="none"
                                     variant="h4"
                                     fontSize={15}
-                                    href="#"
+                                    href={`/blogs/${post.id}`}
                                     sx={{ '&:hover': { color: 'red' } }}
                                 >
                                     {post.title}

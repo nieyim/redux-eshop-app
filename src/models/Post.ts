@@ -8,6 +8,7 @@ export interface Post {
     tags: string[];
     reactions: number;
     thumbnail: string;
+    image: string;
     createdAt: number;
     user: User;
 }

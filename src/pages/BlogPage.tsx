@@ -1,5 +1,5 @@
 import { Container, Grid } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
     BlogHightlight,
@@ -18,6 +18,7 @@ import { Post } from '../models';
 export function BlogPage() {
     const dispatch = useAppDispatch();
     const blogList = useAppSelector(selectBlogList);
+    const [blogFilter, setBlogFilter] = useState<Post[]>(blogList);
     const blogRecent = [...blogList].sort((a, b) => b.createdAt - a.createdAt).slice(0, 4);
     const blogPopular = [...blogList].sort((a, b) => b.reactions - a.reactions).slice(0, 5);
 
@@ -47,6 +48,15 @@ export function BlogPage() {
     const uniqueTags = tagsWithCount.filter((tag) => tag.count > 1);
     const popularTags = [...uniqueTags].sort((a, b) => b.count - a.count);
 
+    const handleCategoryFilterChange = (selectedTag: string) => {
+        const filteredPosts = blogList.filter((post) => post.tags.includes(selectedTag));
+        setBlogFilter(filteredPosts);
+        const blogMainSection = document.getElementById('blog-main-section');
+        if (blogMainSection) {
+            blogMainSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     // Fetch
     useEffect(() => {
         dispatch(blogThunk());
@@ -60,11 +70,13 @@ export function BlogPage() {
                 <Grid container spacing={4}>
                     <Grid item xs={12} md={8}>
                         <RecentBlog post={blogRecent} />
-                        <BlogMain post={blogList} />
+                        <div id="blog-main-section">
+                            <BlogMain post={blogFilter.length === 0 ? blogList : blogFilter} />
+                        </div>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <SocialMedia />
-                        <BlogTag tagList={popularTags} />
+                        <BlogTag tagList={popularTags} onClick={handleCategoryFilterChange} />
                         <PopularBlog blog={blogPopular} />
                     </Grid>
                 </Grid>

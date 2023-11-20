@@ -10,3 +10,4 @@ export * from './CustomLabel';
 export * from './BlogCard';
 export * from './BlogItem';
 export * from './BlogMainItem';
+export * from './BlogBanner';
