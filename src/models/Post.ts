@@ -11,4 +11,12 @@ export interface Post {
     image: string;
     createdAt: number;
     user: User;
+    sections: [
+        {
+            title: string;
+            content: string[];
+            image?: string;
+            caption?: string;
+        },
+    ];
 }
