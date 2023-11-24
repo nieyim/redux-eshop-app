@@ -1,17 +1,15 @@
+import EmailIcon from '@mui/icons-material/Email';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import PinterestIcon from '@mui/icons-material/Pinterest';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import { Button, ButtonProps, Container, Grid, LinkProps, Stack, Typography, Link } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
-import { PopularBlog, PublicFooter, PublicHeader, SocialMedia } from '../components/layout';
-import { BlogBanner } from '../components/common';
 import { useParams } from 'react-router-dom';
 import { postApi } from '../api';
+import { BlogBanner } from '../components/common';
+import { PopularBlog, PublicFooter, PublicHeader } from '../components/layout';
 import { Post } from '../models';
-import { Button, Container, Grid, Typography, ButtonProps, Stack } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import PinterestIcon from '@mui/icons-material/Pinterest';
-import EmailIcon from '@mui/icons-material/Email';
-import { useAppSelector } from '../app/hooks';
-import { selectBlogList } from '../features/blog/blogSlice';
 
 const FbButton = styled(Button)<ButtonProps>(() => ({
     backgroundColor: '#225b99',
@@ -42,6 +40,16 @@ const EmButton = styled(Button)<ButtonProps>(() => ({
     '&:hover': {
         backgroundColor: '#97989b',
         opacity: 0.9,
+    },
+}));
+
+const CustomTags = styled(Link)<LinkProps>(() => ({
+    fontSize: 12,
+    fontWeight: 700,
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+    '&:hover': {
+        color: 'red',
     },
 }));
 
@@ -108,6 +116,17 @@ export function BlogDetail() {
                                 )}
                             </React.Fragment>
                         ))}
+                        <Stack direction="row" spacing={0.5} my={3}>
+                            <Typography fontSize={12} textTransform="uppercase">
+                                Tags:
+                            </Typography>
+                            {currentBlog?.tags.map((tag, index, array) => (
+                                <CustomTags component="button" key={index}>
+                                    {tag}
+                                    {index !== array.length - 1 && ','}
+                                </CustomTags>
+                            ))}
+                        </Stack>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <PopularBlog blog={blogPopular} />
