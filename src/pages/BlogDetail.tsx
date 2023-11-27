@@ -2,7 +2,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { Button, ButtonProps, Container, Grid, LinkProps, Stack, Typography, Link } from '@mui/material';
+import { Button, ButtonProps, Container, Grid, LinkProps, Stack, Typography, Link, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { postApi } from '../api';
 import { BlogBanner } from '../components/common';
 import { PopularBlog, PublicFooter, PublicHeader } from '../components/layout';
 import { Post } from '../models';
+import { useTheme } from '@mui/material/styles';
 
 const FbButton = styled(Button)<ButtonProps>(() => ({
     backgroundColor: '#225b99',
@@ -54,9 +55,11 @@ const CustomTags = styled(Link)<LinkProps>(() => ({
 }));
 
 export function BlogDetail() {
+    const theme = useTheme();
     const { blogID } = useParams<{ blogID: string }>(); // Extract the productID from the URL params
     const [currentBlog, setCurentBlog] = useState<Post>();
     const [blogList, setBlogList] = useState<Post[]>([]);
+    const isXsScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const blogPopular = [...blogList].sort((a, b) => b.reactions - a.reactions).slice(0, 5);
 
     console.log(currentBlog);
@@ -84,16 +87,16 @@ export function BlogDetail() {
                     <Grid item xs={12} md={8}>
                         <Stack direction="row" spacing={1} mb={3}>
                             <FbButton variant="contained" size="small" startIcon={<FacebookIcon />}>
-                                Share
+                                {isXsScreen ? null : 'Share'}
                             </FbButton>
                             <TwButton variant="contained" size="small" startIcon={<TwitterIcon />}>
-                                Tweet
+                                {isXsScreen ? null : 'Tweet'}
                             </TwButton>
                             <PtButton variant="contained" size="small" startIcon={<PinterestIcon />}>
-                                Pin
+                                {isXsScreen ? null : 'Pin'}
                             </PtButton>
                             <EmButton variant="contained" size="small" startIcon={<EmailIcon />}>
-                                Email
+                                {isXsScreen ? null : 'Email'}
                             </EmButton>
                         </Stack>
                         {currentBlog?.sections.map((blog, index) => (

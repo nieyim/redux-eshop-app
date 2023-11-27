@@ -65,7 +65,7 @@ export default function ProductForm({ initialValues, onSubmit, category }: Produ
 
     // Initialize the form control and define its default values and validation schema.
     const { control, handleSubmit, formState, reset } = useForm<Product>({
-        defaultValues: initialValues,
+        //defaultValues: initialValues,
         resolver: yupResolver(schema) as any, // Using Yup validation resolver.
     });
 
