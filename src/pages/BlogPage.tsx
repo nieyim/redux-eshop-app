@@ -1,5 +1,5 @@
 import { Container, Grid } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
     BlogHightlight,
@@ -19,10 +19,11 @@ export function BlogPage() {
     const dispatch = useAppDispatch();
     const blogList = useAppSelector(selectBlogList);
     const [blogFilter, setBlogFilter] = useState<Post[]>(blogList);
+    const [visibleBlogs, setVisibleBlogs] = useState(5); // Number of blogs initially visible
     const blogRecent = [...blogList].sort((a, b) => b.createdAt - a.createdAt).slice(0, 4);
     const blogPopular = [...blogList].sort((a, b) => b.reactions - a.reactions).slice(0, 5);
 
-    // Blog Hightlight
+    // Blog Highlight
     const shuffleBlog = (blog: Post[]) => {
         for (let i = blog.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -30,9 +31,9 @@ export function BlogPage() {
         }
         return blog;
     };
-    const blogListHightlight = shuffleBlog([...blogList]).slice(0, 2);
+    const blogListHighlight = shuffleBlog([...blogList]).slice(0, 2);
 
-    //Tags
+    // Tags
     const tagCount: { [tagName: string]: number } = {};
     blogList.forEach((post) => {
         post.tags.forEach((tag) => {
@@ -57,21 +58,44 @@ export function BlogPage() {
         }
     };
 
+    // Infinite scrolling
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    const handleScroll = () => {
+        if (containerRef.current && containerRef.current.getBoundingClientRect().bottom <= window.innerHeight) {
+            // User has scrolled to the end
+            setVisibleBlogs((prevVisibleBlogs) => prevVisibleBlogs + 5); // Increase the number of visible blogs
+        }
+    };
+
     // Fetch
     useEffect(() => {
         dispatch(blogThunk());
     }, [dispatch]);
 
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
         <React.Fragment>
             <PublicHeader />
-            <BlogHightlight post={blogListHightlight} />
-            <Container component="section">
+            <BlogHightlight post={blogListHighlight} />
+            <Container component="section" sx={{ mb: 2 }}>
                 <Grid container spacing={4}>
                     <Grid item xs={12} md={8}>
                         <RecentBlog post={blogRecent} />
-                        <div id="blog-main-section">
-                            <BlogMain post={blogFilter.length === 0 ? blogList : blogFilter} />
+                        <div id="blog-main-section" ref={containerRef}>
+                            <BlogMain
+                                post={
+                                    blogFilter.length === 0
+                                        ? blogList.slice(0, visibleBlogs)
+                                        : blogFilter.slice(0, visibleBlogs)
+                                }
+                            />
                         </div>
                     </Grid>
                     <Grid item xs={12} md={4}>

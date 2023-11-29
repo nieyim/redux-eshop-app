@@ -17,6 +17,7 @@ import {
     HomePage,
     LoginPage,
     NotFound,
+    ProductDetailPage,
     ProductPage,
     RegisterPage,
 } from './pages';
@@ -33,6 +34,7 @@ function App() {
                 <Route index element={<HomePage />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/products" element={<ProductPage />} />
+                <Route path="/products/:productID" element={<ProductDetailPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/blogs" element={<BlogPage />} />
@@ -49,12 +51,6 @@ function App() {
                 </Route>
                 <Route path="/*" element={<NotFound />} />
             </Routes>
-            {/* <Button
-                sx={{ position: 'fixed', bottom: 5, right: 5 }}
-                onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-            >
-                <DarkModeIcon />
-            </Button> */}
         </ThemeProvider>
     );
 }

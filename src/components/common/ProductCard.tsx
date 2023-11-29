@@ -56,7 +56,7 @@ export function ProductCard({ product }: { product: Product }) {
                 boxShadow: 'rgba(145, 158, 171, 0.08) 0px 0px 2px 0px, rgba(145, 158, 171, 0.08) 0px 12px 24px -4px',
             }}
         >
-            <CardActionArea>
+            <CardActionArea href={`/products/${product.id}`}>
                 <Box sx={{ pt: '100%', position: 'relative' }}>
                     {product.discountPercentage > 0 && renderStatus}
 

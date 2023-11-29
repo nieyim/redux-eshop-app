@@ -56,7 +56,7 @@ const CustomTags = styled(Link)<LinkProps>(() => ({
 
 export function BlogDetail() {
     const theme = useTheme();
-    const { blogID } = useParams<{ blogID: string }>(); // Extract the productID from the URL params
+    const { blogID } = useParams<{ blogID: string }>(); // Extract the blogID from the URL params
     const [currentBlog, setCurentBlog] = useState<Post>();
     const [blogList, setBlogList] = useState<Post[]>([]);
     const isXsScreen = useMediaQuery(theme.breakpoints.down('sm'));
