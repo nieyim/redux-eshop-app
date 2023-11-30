@@ -5,6 +5,7 @@ import { Product } from '../models';
 import { productsApi } from '../api';
 import { Box, Breadcrumbs, Container, Grid, Link, Typography } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
+import { ProductCarousel, ProductInfo } from '../features/product/components';
 
 export function ProductDetailPage() {
     const { productID } = useParams<{ productID: string }>(); // Extract the productID from the URL params
@@ -46,12 +47,12 @@ export function ProductDetailPage() {
                         <Grid item xs={12} my={2}>
                             {renderBreadcrumbs}
                         </Grid>
-                        <Grid item xs={12} container mt={6}>
+                        <Grid item xs={12} container mt={3} spacing={3}>
                             <Grid item xs={12} md={6}>
-                                T1
+                                <ProductCarousel image={currentProduct?.images} />
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                GenG
+                                {currentProduct && <ProductInfo product={currentProduct} />}
                             </Grid>
                         </Grid>
                     </Grid>

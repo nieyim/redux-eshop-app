@@ -5,3 +5,5 @@ export * from './ProductFilters';
 export * from './ProductForm';
 export * from './ProductSearch';
 export * from './ProductSort';
+export * from './ProductCarousel';
+export * from './ProductInfo';
