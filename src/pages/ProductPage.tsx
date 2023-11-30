@@ -130,7 +130,7 @@ export function ProductPage() {
                         direction="row"
                         alignItems="center"
                         flexWrap="wrap-reverse"
-                        justifyContent="flex-end"
+                        justifyContent={{ xs: 'center', md: 'flex-end' }}
                         sx={{ mb: 5 }}
                     >
                         <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} flexShrink={0} sx={{ my: 1 }}>
