@@ -1,6 +1,6 @@
 import { List, ListItem, ListItemButton, Stack } from '@mui/material';
 import React from 'react';
-import Typography from '../common/Typography';
+import Typography from '../../../components/common/Typography';
 
 interface BlogTagProps {
     tagList: {

@@ -1,8 +1,8 @@
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Typography from '../common/Typography';
+import Typography from '../../../components/common/Typography';
 
-export function ProductSmokingHero() {
+export function HomeSmokingHero() {
     return (
         <Container component="section" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 9 }}>
             <Button

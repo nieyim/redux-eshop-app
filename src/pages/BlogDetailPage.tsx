@@ -7,10 +7,10 @@ import { styled } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { postApi } from '../api';
-import { BlogBanner } from '../components/common';
-import { PopularBlog, PublicFooter, PublicHeader } from '../components/layout';
+import { PublicFooter, PublicHeader } from '../components/layout';
 import { Post } from '../models';
 import { useTheme } from '@mui/material/styles';
+import { BlogBanner, PopularBlog } from '../features/blog/components';
 
 const FbButton = styled(Button)<ButtonProps>(() => ({
     backgroundColor: '#225b99',

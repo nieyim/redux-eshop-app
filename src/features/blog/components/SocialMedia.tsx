@@ -1,9 +1,9 @@
-import { Box, Card, CardActionArea, CardMedia, Grid } from '@mui/material';
-import React from 'react';
-import Typography from '../common/Typography';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import GoogleIcon from '@mui/icons-material/Google';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import { Box, Card, CardActionArea, Grid } from '@mui/material';
+import React from 'react';
+import Typography from '../../../components/common/Typography';
 
 const medias = [
     { name: 'Facebook', color: '#225B97', icon: <FacebookIcon fontSize="large" />, fl: '21.2k' },

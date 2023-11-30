@@ -1,23 +1,16 @@
 import React from 'react';
-import {
-    ProductCTA,
-    ProductCategories,
-    ProductHero,
-    ProductSmokingHero,
-    ProductValues,
-    PublicFooter,
-    PublicHeader,
-} from '../components/layout';
+import { PublicFooter, PublicHeader } from '../components/layout';
+import { HomeHero, HomeValues, HomeCategories, HomeCTA, HomeSmokingHero } from '../features/home/components';
 
 export function HomePage() {
     return (
         <React.Fragment>
             <PublicHeader />
-            <ProductHero />
-            <ProductValues />
-            <ProductCategories />
-            <ProductCTA />
-            <ProductSmokingHero />
+            <HomeHero />
+            <HomeValues />
+            <HomeCategories />
+            <HomeCTA />
+            <HomeSmokingHero />
             <PublicFooter />
         </React.Fragment>
     );

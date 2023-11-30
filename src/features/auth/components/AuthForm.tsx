@@ -2,11 +2,11 @@ import { Grid, Link } from '@mui/material';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import * as React from 'react';
-import Paper from '../common/Paper';
-import Typography from '../common/Typography';
+import Paper from '../../../components/common/Paper';
+import Typography from '../../../components/common/Typography';
 import { useForm } from 'react-hook-form';
-import { InputField } from '../field/InputField';
-import { Button } from '../common';
+import { InputField } from '../../../components/field/InputField';
+import { Button } from '../../../components/common';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 

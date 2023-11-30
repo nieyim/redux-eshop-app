@@ -4,7 +4,7 @@ import { SxProps } from '@mui/system';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
-const ProductHeroLayoutRoot = styled('section')(({ theme }) => ({
+const HomeHeroLayoutRoot = styled('section')(({ theme }) => ({
     color: theme.palette.common.white,
     position: 'relative',
     display: 'flex',
@@ -27,15 +27,15 @@ const Background = styled(Box)({
     zIndex: -2,
 });
 
-interface ProductHeroLayoutProps {
+interface HomeHeroLayoutProps {
     sxBackground: SxProps<Theme>;
 }
 
-export default function ProductHeroLayout(props: React.HTMLAttributes<HTMLDivElement> & ProductHeroLayoutProps) {
+export default function HomeHeroLayout(props: React.HTMLAttributes<HTMLDivElement> & HomeHeroLayoutProps) {
     const { sxBackground, children } = props;
 
     return (
-        <ProductHeroLayoutRoot>
+        <HomeHeroLayoutRoot>
             <Container
                 sx={{
                     mt: 3,
@@ -68,6 +68,6 @@ export default function ProductHeroLayout(props: React.HTMLAttributes<HTMLDivEle
                     sx={{ position: 'absolute', bottom: 32 }}
                 />
             </Container>
-        </ProductHeroLayoutRoot>
+        </HomeHeroLayoutRoot>
     );
 }

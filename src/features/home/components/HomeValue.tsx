@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import { Theme } from '@mui/material/styles';
 import { SxProps } from '@mui/system';
-import Typography from '../common/Typography';
+import Typography from '../../../components/common/Typography';
 
 const item: SxProps<Theme> = {
     display: 'flex',
@@ -12,7 +12,7 @@ const item: SxProps<Theme> = {
     px: 5,
 };
 
-export function ProductValues() {
+export function HomeValues() {
     return (
         <Box component="section" sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'secondary.light' }}>
             <Container sx={{ mt: 15, mb: 30, display: 'flex', position: 'relative' }}>

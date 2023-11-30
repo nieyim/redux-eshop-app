@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch } from '../app/hooks';
-import { AuthForm, PublicFooter, PublicHeader } from '../components/layout';
+import { PublicFooter, PublicHeader } from '../components/layout';
 import { authThunk } from '../features/auth/authThunk';
 import { LoginPayload } from '../models';
+import { AuthForm } from '../features/auth/components';
 
 export function LoginPage() {
     // const userInfo = useAppSelector(selectUserInfo);

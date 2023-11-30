@@ -1,11 +1,11 @@
 import { Box, Container, Grid, LinearProgress, Stack, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { ProductCard } from '../components/common';
-import { ProductFilters, ProductSearch, ProductSort, PublicFooter, PublicHeader } from '../components/layout';
+import { PublicFooter, PublicHeader } from '../components/layout';
 import { selectIsLoading, selectProductList } from '../features/product/productSlice';
 import { productThunk } from '../features/product/productThunk';
 import { Product } from '../models';
+import { ProductCard, ProductFilters, ProductSearch, ProductSort } from '../features/product/components';
 
 export interface FilterOptions {
     field: string;

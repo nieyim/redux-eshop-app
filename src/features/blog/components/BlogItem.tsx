@@ -15,8 +15,8 @@ import {
 } from '@mui/material';
 import { green } from '@mui/material/colors';
 import { useState } from 'react';
-import { Post } from '../../models';
-import { formatDateTime } from '../../utils/toDate';
+import { Post } from '../../../models';
+import { formatDateTime } from '../../../utils/toDate';
 
 // Define the BlogItem component
 interface BlogItemProps {

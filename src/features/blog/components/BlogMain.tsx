@@ -1,8 +1,8 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import { Post } from '../../models';
-import { BlogMainItem } from '../common';
-import Typography from '../common/Typography';
+import { Post } from '../../../models';
+import Typography from '../../../components/common/Typography';
+import { BlogMainItem } from './BlogMainItem';
 
 export interface BlogMainProps {
     post: Post[];

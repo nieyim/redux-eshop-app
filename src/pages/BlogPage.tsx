@@ -1,19 +1,11 @@
 import { Container, Grid } from '@mui/material';
 import React, { useEffect, useState, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import {
-    BlogHightlight,
-    BlogMain,
-    BlogTag,
-    PopularBlog,
-    PublicFooter,
-    PublicHeader,
-    RecentBlog,
-    SocialMedia,
-} from '../components/layout';
 import { selectBlogList } from '../features/blog/blogSlice';
 import { blogThunk } from '../features/blog/blogThunk';
 import { Post } from '../models';
+import { PublicHeader, PublicFooter } from '../components/layout';
+import { BlogHightlight, RecentBlog, BlogMain, SocialMedia, BlogTag, PopularBlog } from '../features/blog/components';
 
 export function BlogPage() {
     const dispatch = useAppDispatch();

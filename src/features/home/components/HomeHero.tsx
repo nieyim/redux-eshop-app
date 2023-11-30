@@ -1,13 +1,12 @@
-import * as React from 'react';
-import { Button } from '../common';
-import Typography from '../common/Typography';
-import ProductHeroLayout from '../common/ProductHeroComp';
+import { Button } from '../../../components/common';
+import Typography from '../../../components/common/Typography';
+import HomeHeroLayout from './HomeHeroComp';
 
 const backgroundImage = 'https://wallpapers.com/images/hd/buy-online-ecommerce-parcel-box-s27djx84qkdna93g.jpg';
 
-export function ProductHero() {
+export function HomeHero() {
     return (
-        <ProductHeroLayout
+        <HomeHeroLayout
             sxBackground={{
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundColor: '#7fc7d9', // Average color of the background image.
@@ -35,6 +34,6 @@ export function ProductHero() {
             <Typography variant="body2" color="inherit" sx={{ mt: 2 }}>
                 Join us now
             </Typography>
-        </ProductHeroLayout>
+        </HomeHeroLayout>
     );
 }

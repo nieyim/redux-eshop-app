@@ -3,8 +3,8 @@ import { Button, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { Category, Product } from '../../models';
-import { productsApi } from '../../api';
+import { Category, Product } from '../../../models';
+import { productsApi } from '../../../api';
 import ProductForm from './ProductForm';
 
 export function AdminAddEditProduct() {

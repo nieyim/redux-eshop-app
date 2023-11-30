@@ -1,5 +1,6 @@
 import React from 'react';
-import { AuthForm, PublicFooter, PublicHeader } from '../components/layout';
+import { PublicFooter, PublicHeader } from '../components/layout';
+import { AuthForm } from '../features/auth/components';
 
 export function RegisterPage() {
     const handleRegisterFormSubmit = (data: any) => {

@@ -1,5 +1,5 @@
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
-import { Post } from '../../models';
+import { Post } from '../../../models';
 
 // Define the BlogCard component
 interface BlogCardProps {

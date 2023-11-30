@@ -24,7 +24,7 @@ import {
 import { AdminPage } from './pages/AdminPage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import theme from './utils/theme';
-import { AdminAddEditProduct, AdminProductList } from './components/layout';
+import { AdminProductList, AdminAddEditProduct } from './features/product/components';
 
 function App() {
     return (

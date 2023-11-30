@@ -2,12 +2,11 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import Typography from '../common/Typography';
-import Snackbar from '../common/Snackbar';
-import { Button } from '../common';
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
+import Typography from '../../../components/common/Typography';
+import Snackbar from '../../../components/common/Snackbar';
 
-export function ProductCTA() {
+export function HomeCTA() {
     const [open, setOpen] = React.useState(false);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

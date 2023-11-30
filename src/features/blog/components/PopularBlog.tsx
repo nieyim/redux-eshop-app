@@ -1,7 +1,7 @@
 import { Card, CardContent, CardMedia, Divider, Grid, Link } from '@mui/material';
 import React from 'react';
-import { Post } from '../../models';
-import Typography from '../common/Typography';
+import { Post } from '../../../models';
+import Typography from '../../../components/common/Typography';
 
 interface PopularBlogProps {
     blog: Post[];

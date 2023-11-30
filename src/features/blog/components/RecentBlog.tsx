@@ -1,8 +1,8 @@
 import React from 'react';
-import { Post } from '../../models';
-import Typography from '../common/Typography';
+import { Post } from '../../../models';
+import Typography from '../../../components/common/Typography';
 import { Grid } from '@mui/material';
-import { BlogItem } from '../common';
+import { BlogItem } from './BlogItem';
 
 export interface RecentBlogProps {
     post: Post[];

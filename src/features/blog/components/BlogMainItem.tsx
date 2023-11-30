@@ -9,9 +9,9 @@ import {
     Typography,
     useMediaQuery,
 } from '@mui/material';
-import { Post } from '../../models';
-import { formatDateTime } from '../../utils/toDate';
-import { CustomLabel } from './CustomLabel';
+import { Post } from '../../../models';
+import { formatDateTime } from '../../../utils/toDate';
+import { CustomLabel } from '../../../components/common/CustomLabel';
 import { useTheme } from '@mui/material/styles';
 
 interface BlogMainItemProps {

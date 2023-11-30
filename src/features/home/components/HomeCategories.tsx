@@ -2,10 +2,10 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Container from '@mui/material/Container';
 import { styled } from '@mui/material/styles';
-import Typography from '../common/Typography';
+import Typography from '../../../components/common/Typography';
 import { useState, useEffect } from 'react';
-import { productsApi } from '../../api';
-import { Category } from '../../models';
+import { productsApi } from '../../../api';
+import { Category } from '../../../models';
 import { useNavigate } from 'react-router-dom';
 
 const ImageBackdrop = styled('div')(({ theme }) => ({
@@ -90,7 +90,7 @@ function generateRandomWidthArray(total: number) {
     return width;
 }
 
-export function ProductCategories() {
+export function HomeCategories() {
     const [categoryList, setCategoryList] = useState<Category[]>([]);
     const navigate = useNavigate();
 

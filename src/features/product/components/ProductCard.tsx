@@ -3,8 +3,8 @@ import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Product } from '../../models';
-import { CustomLabel } from './CustomLabel';
+import { Product } from '../../../models';
+import { CustomLabel } from '../../../components/common/CustomLabel';
 import { CardActionArea } from '@mui/material';
 
 // ----------------------------------------------------------------------

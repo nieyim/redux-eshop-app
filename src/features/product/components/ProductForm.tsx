@@ -3,8 +3,8 @@ import { Box, Button, Grid, InputAdornment } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { Category, Product } from '../../models';
-import { InputField, SelectField } from '../field';
+import { Category, Product } from '../../../models';
+import { InputField, SelectField } from '../../../components/field';
 
 // Define an interface for the ProductForm component's props.
 export interface ProductFormProps {

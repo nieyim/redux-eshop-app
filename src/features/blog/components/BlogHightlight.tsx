@@ -1,6 +1,6 @@
 import { Container, Grid } from '@mui/material';
-import { Post } from '../../models';
-import { BlogCard } from '../common';
+import { Post } from '../../../models';
+import { BlogCard } from './BlogCard';
 
 export interface BlogHightlightProps {
     post: Post[];

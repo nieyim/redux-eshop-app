@@ -12,9 +12,9 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import { useAppSelector } from '../../app/hooks';
-import { selectCategoryList } from '../../features/product/productSlice';
-import { FilterOptions } from '../../pages/ProductPage';
+import { useAppSelector } from '../../../app/hooks';
+import { selectCategoryList } from '../productSlice';
+import { FilterOptions } from '../../../pages/ProductPage';
 
 // import Iconify from 'src/components/iconify';
 // import Scrollbar from 'src/components/scrollbar';

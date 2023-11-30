@@ -1,5 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { Search, SearchIconWrapper, StyledInputBase } from '../common';
+import { Search, SearchIconWrapper, StyledInputBase } from '../../../components/common';
 
 interface ProductSearchProps {
     onSearch: (option: string) => void; // Define a function prop to handle sorting

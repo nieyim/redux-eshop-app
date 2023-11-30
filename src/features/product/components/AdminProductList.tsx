@@ -18,11 +18,11 @@ import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { productsApi } from '../../api';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectIsLoading, selectProductList } from '../../features/product/productSlice';
-import { productThunk } from '../../features/product/productThunk';
-import { Product } from '../../models';
+import { productsApi } from '../../../api';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { selectIsLoading, selectProductList } from '../productSlice';
+import { productThunk } from '../productThunk';
+import { Product } from '../../../models';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
