@@ -25,14 +25,19 @@ export function ProductDetailPage() {
 
     const renderBreadcrumbs = (
         <Breadcrumbs aria-label="breadcrumb" separator="›">
-            <Link underline="hover" sx={{ display: 'flex', alignItems: 'center' }} color="inherit" href="/">
+            <Link underline="hover" sx={{ display: 'flex', alignItems: 'center' }} color="text.primary" href="/">
                 <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
                 Home
             </Link>
-            <Link underline="hover" sx={{ display: 'flex', alignItems: 'center' }} color="inherit" href="/products">
+            <Link
+                underline="hover"
+                sx={{ display: 'flex', alignItems: 'center' }}
+                color="text.primary"
+                href="/products"
+            >
                 Products
             </Link>
-            <Typography sx={{ display: 'flex', alignItems: 'center' }} color="text.primary">
+            <Typography sx={{ display: 'flex', alignItems: 'center' }} color="inherit">
                 {currentProduct?.title}
             </Typography>
         </Breadcrumbs>
@@ -47,7 +52,7 @@ export function ProductDetailPage() {
                         <Grid item xs={12} my={2}>
                             {renderBreadcrumbs}
                         </Grid>
-                        <Grid item xs={12} container mt={3} spacing={3}>
+                        <Grid item xs={12} container mt={3} spacing={5}>
                             <Grid item xs={12} md={6}>
                                 <ProductCarousel image={currentProduct?.images} />
                             </Grid>

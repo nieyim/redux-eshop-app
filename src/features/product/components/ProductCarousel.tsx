@@ -10,10 +10,10 @@ export function ProductCarousel(props: ProductCarouselProps) {
     const images = props.image;
 
     return (
-        <Carousel>
+        <Carousel navButtonsAlwaysVisible animation="fade">
             {images?.map((image, index) => (
-                <Paper key={index} sx={{ height: 400, display: 'flex', justifyContent: 'center' }} elevation={0}>
-                    <img src={image} height="100%" width="100%" />
+                <Paper key={index} sx={{ height: 450, display: 'flex', justifyContent: 'center' }} elevation={0}>
+                    <img src={image} height="100%" width="100%" alt="product" />
                 </Paper>
             ))}
         </Carousel>
