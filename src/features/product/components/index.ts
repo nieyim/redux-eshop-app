@@ -7,3 +7,4 @@ export * from './ProductSearch';
 export * from './ProductSort';
 export * from './ProductCarousel';
 export * from './ProductInfo';
+export * from './ProductTab';

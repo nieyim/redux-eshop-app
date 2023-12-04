@@ -43,7 +43,7 @@ export function AdminAddEditProduct() {
     const initialValues: Product = {
         id: 0,
         title: '',
-        description: '',
+        summary: '',
         price: 0,
         discountPercentage: 0,
         rating: 0,
@@ -52,6 +52,7 @@ export function AdminAddEditProduct() {
         category: '',
         thumbnail: '',
         images: [],
+        description: [],
         ...selectedProduct,
     };
 

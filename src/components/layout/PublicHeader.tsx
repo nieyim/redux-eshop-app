@@ -67,7 +67,7 @@ export function PublicHeader(props: Props) {
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
+                        sx={{ mr: 2, display: { md: 'none' } }}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -80,12 +80,12 @@ export function PublicHeader(props: Props) {
                             fontSize: 24,
                             justifyContent: 'flex-start',
                             flex: 1,
-                            display: { xs: 'none', sm: 'flex' },
+                            display: { xs: 'none', md: 'flex' },
                         }}
                     >
                         {'e-commerce'}
                     </Link>
-                    <Box sx={{ flex: 1, display: { xs: 'none', sm: 'flex' }, justifyContent: 'center' }}>
+                    <Box sx={{ flex: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
                         {pages.map((page) => (
                             <Link
                                 key={page}
@@ -125,7 +125,7 @@ export function PublicHeader(props: Props) {
                         keepMounted: true, // Better open performance on mobile.
                     }}
                     sx={{
-                        display: { xs: 'block', sm: 'none' },
+                        display: { xs: 'block', md: 'none' },
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                     }}
                 >

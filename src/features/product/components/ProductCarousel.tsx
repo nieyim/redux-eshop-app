@@ -12,8 +12,12 @@ export function ProductCarousel(props: ProductCarouselProps) {
     return (
         <Carousel navButtonsAlwaysVisible animation="fade">
             {images?.map((image, index) => (
-                <Paper key={index} sx={{ height: 450, display: 'flex', justifyContent: 'center' }} elevation={0}>
-                    <img src={image} height="100%" width="100%" alt="product" />
+                <Paper
+                    key={index}
+                    sx={{ height: { xs: 300, md: 420 }, display: 'flex', justifyContent: 'center' }}
+                    elevation={0}
+                >
+                    <img src={image} height="100%" width="100%" alt="product" style={{ objectFit: 'cover' }} />
                 </Paper>
             ))}
         </Carousel>

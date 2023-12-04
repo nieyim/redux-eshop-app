@@ -10,7 +10,7 @@ const initialState: ProductState = {
     addNewProduct: {
         id: 0,
         title: '',
-        description: '',
+        summary: '',
         price: 0,
         discountPercentage: 0,
         rating: 0,
@@ -19,6 +19,7 @@ const initialState: ProductState = {
         category: '',
         thumbnail: '',
         images: [],
+        description: [],
     },
     categoryList: [],
 };

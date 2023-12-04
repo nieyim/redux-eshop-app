@@ -136,13 +136,7 @@ export default function ProductForm({ initialValues, onSubmit, category }: Produ
                     </Grid>
 
                     <Grid item xs={12}>
-                        <InputField
-                            name="description"
-                            control={control}
-                            label="Description"
-                            rows={4}
-                            multiline={true}
-                        />
+                        <InputField name="summary" control={control} label="Summary" rows={4} multiline={true} />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
