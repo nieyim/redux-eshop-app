@@ -10,6 +10,10 @@ export const productsApi = {
         const url = 'api/categories';
         return axiosClient.get(url);
     },
+    getProductByCategory(category: string): Promise<ListResponse<Product>> {
+        const url = `api/products?category=${category}`;
+        return axiosClient.get(url);
+    },
     getProductById(id: string): Promise<ObjectResponse<Product>> {
         const url = `api/products/${id}`;
         return axiosClient.get(url);

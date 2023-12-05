@@ -11,4 +11,5 @@ export interface Product {
     thumbnail: string;
     images: string[];
     description?: string[];
+    spec?: [{ title: string; content: string }];
 }

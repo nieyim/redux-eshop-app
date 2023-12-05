@@ -1,8 +1,9 @@
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import { Product } from '../../../models';
 
 interface TabPanelProps {
@@ -74,7 +75,26 @@ export function ProductTab(props: ProductTabProps) {
                 ))}
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-                Item Two
+                <TableContainer component={Paper} elevation={0}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableBody>
+                            {product.spec?.map((row, index) => (
+                                <TableRow
+                                    key={row.title}
+                                    sx={{
+                                        '&:last-child td, &:last-child th': { border: 0 },
+                                        backgroundColor: index % 2 === 0 ? '#f5f5f5' : 'white', // Apply alternating colors
+                                    }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {row.title}
+                                    </TableCell>
+                                    <TableCell align="right">{row.content}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
                 Item Three

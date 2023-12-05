@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { productsApi } from '../api';
 import { PublicFooter, PublicHeader } from '../components/layout';
-import { ProductCarousel, ProductInfo, ProductTab } from '../features/product/components';
+import { ProductCarousel, ProductInfo, ProductRealted, ProductTab } from '../features/product/components';
 import { Product } from '../models';
 
 export function ProductDetailPage() {
@@ -60,8 +60,13 @@ export function ProductDetailPage() {
                                 {currentProduct && <ProductInfo product={currentProduct} />}
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} my={2}>
+                        <Grid item xs={12} mt={2}>
                             {currentProduct && <ProductTab product={currentProduct} />}
+                        </Grid>
+                        <Grid item xs={12} mb={2}>
+                            {currentProduct && (
+                                <ProductRealted category={currentProduct.category} currentProduct={currentProduct} />
+                            )}
                         </Grid>
                     </Grid>
                 </Container>

@@ -65,16 +65,9 @@ export function ProductInfo(props: ProductInfoProps) {
             <Typography variant="body1" fontSize={14}>
                 Brand: {product.brand}
             </Typography>
-            <Rating
-                name="read-only"
-                value={product.rating}
-                precision={0.5}
-                readOnly
-                size="small"
-                sx={{ mt: 1.5, mb: 2 }}
-            />
+            <Rating name="two" value={product.rating} precision={0.5} readOnly size="small" sx={{ mt: 1.5, mb: 2 }} />
             <Box display="flex" flexDirection="row" alignItems="baseline" mb={3.5}>
-                <Typography variant="h4" color="secondary" sx={{ mr: 2 }} fontSize={32}>
+                <Typography variant="h5" color="secondary" sx={{ mr: 2 }} fontSize={32} fontWeight={600}>
                     $ {discountedPrice}
                 </Typography>
                 {product.discountPercentage !== 0 && (
