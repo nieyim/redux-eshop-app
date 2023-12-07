@@ -130,6 +130,7 @@ export function ProductFilters({
 
         // Pass the filter options to the callback function
         onChangeFilterOptions(filterOptions);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedRating, selectedCategory, selectedPrice]);
 
     const categoryData = useAppSelector(selectCategoryList); // Select Category List from State

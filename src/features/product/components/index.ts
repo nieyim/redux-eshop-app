@@ -10,3 +10,4 @@ export * from './ProductInfo';
 export * from './ProductTab';
 export * from './ProductRelated';
 export * from './ProductRelatedItem';
+export * from './ProductReview';

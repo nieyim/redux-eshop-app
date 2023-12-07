@@ -1,3 +1,5 @@
+import { User } from './User';
+
 export interface Product {
     id: number;
     title: string;
@@ -11,5 +13,6 @@ export interface Product {
     thumbnail: string;
     images: string[];
     description?: string[];
-    spec?: [{ title: string; content: string }];
+    spec?: { title: string[]; content: string[] };
+    reviews?: { userID: number[]; rate: number[]; text: string[]; createdAt: number[] };
 }

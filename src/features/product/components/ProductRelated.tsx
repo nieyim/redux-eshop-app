@@ -15,7 +15,6 @@ export function ProductRealted(props: ProductRealtedProps) {
     const category = props.category;
     const currentproduct = props.currentProduct;
     const [realatedProduct, setRelatedProduct] = useState<Product[]>([]);
-    console.log(realatedProduct);
 
     useEffect(() => {
         (async () => {
@@ -33,7 +32,7 @@ export function ProductRealted(props: ProductRealtedProps) {
             <Typography variant="h4" marked="center" align="center" component="h2" fontSize={25} mb={4}>
                 Realated Products
             </Typography>
-            <Grid xs={12} container spacing={2}>
+            <Grid container spacing={2}>
                 {realatedProduct
                     .filter((product) => product.id !== currentproduct.id)
                     .map((product) => (
