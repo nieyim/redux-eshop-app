@@ -25,6 +25,7 @@ import { AdminPage } from './pages/AdminPage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import theme from './utils/theme';
 import { AdminProductList, AdminAddEditProduct } from './features/product/components';
+import { ScrollToTopButton } from './components/common';
 
 function App() {
     return (
@@ -51,6 +52,7 @@ function App() {
                 </Route>
                 <Route path="/*" element={<NotFound />} />
             </Routes>
+            <ScrollToTopButton />
         </ThemeProvider>
     );
 }

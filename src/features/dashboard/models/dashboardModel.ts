@@ -1,4 +1,4 @@
-import { Cart, User } from '../../../models';
+import { Order } from '../../../models';
 
 export interface StatisticsState {
     userCount: number;
@@ -11,7 +11,7 @@ export interface DashboardState {
     loading: boolean;
     statistics: StatisticsState;
     error: String | null;
-    barchartCart: Cart[];
+    barchartOrder: Order[];
     barchartUser: string[];
     piechart: [];
 }

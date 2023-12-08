@@ -6,3 +6,5 @@ export * from './StatisticItems';
 export * from './TopPriceChart';
 export * from './SearchBar';
 export * from './CustomLabel';
+export * from './ScrollToTopButton';
+export * from './CartButton';

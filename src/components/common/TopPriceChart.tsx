@@ -3,7 +3,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Chart from 'react-apexcharts';
 import { useAppSelector } from '../../app/hooks';
 import { selectIsLoading } from '../../features/auth/authSlice';
-import { selectBarChartCart, selectBarChartUser } from '../../features/dashboard/dashboardSlice';
+import { selectBarChartOrder, selectBarChartUser } from '../../features/dashboard/dashboardSlice';
 import { useState, useEffect } from 'react';
 
 const useChartOptions = (userNameList: string[]) => {
@@ -86,7 +86,7 @@ const useChartOptions = (userNameList: string[]) => {
 
 export const TopPriceChart = () => {
     // Extract the 'total' and 'discountedTotal' values using map()
-    const cartList = useAppSelector(selectBarChartCart);
+    const orderList = useAppSelector(selectBarChartOrder);
     const loading = useAppSelector(selectIsLoading);
     const userNameList = useAppSelector(selectBarChartUser);
     const [showLoadingSpinner, setShowLoadingSpinner] = useState(true);
@@ -97,9 +97,10 @@ export const TopPriceChart = () => {
         }, 500); // 2 seconds delay
     }, [loading]);
 
-    const totalArray = cartList.map((item) => item.total);
-    const discountedTotalArray = cartList.map((item) => item.discountedTotal);
+    const totalArray = orderList.map((item) => item.total);
+    const discountedTotalArray = orderList.map((item) => item.discountedTotal);
 
+    console.log(totalArray);
     const series = [
         {
             name: 'Total Price',

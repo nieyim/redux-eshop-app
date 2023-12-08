@@ -6,6 +6,7 @@ import { selectIsLoading, selectProductList } from '../features/product/productS
 import { productThunk } from '../features/product/productThunk';
 import { Product } from '../models';
 import { ProductCard, ProductFilters, ProductSearch, ProductSort } from '../features/product/components';
+import { CartButton } from '../components/common';
 
 export interface FilterOptions {
     field: string;
@@ -165,6 +166,7 @@ export function ProductPage() {
                 {/* <ProductCartWidget /> */}
             </Box>
             <PublicFooter />
+            <CartButton />
         </React.Fragment>
     );
 }

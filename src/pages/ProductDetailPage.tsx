@@ -6,6 +6,7 @@ import { productsApi } from '../api';
 import { PublicFooter, PublicHeader } from '../components/layout';
 import { ProductCarousel, ProductInfo, ProductRealted, ProductTab } from '../features/product/components';
 import { Product } from '../models';
+import { CartButton } from '../components/common';
 
 export function ProductDetailPage() {
     const { productID } = useParams<{ productID: string }>(); // Extract the productID from the URL params
@@ -72,6 +73,7 @@ export function ProductDetailPage() {
                 </Container>
             </Box>
             <PublicFooter />
+            <CartButton />
         </React.Fragment>
     );
 }

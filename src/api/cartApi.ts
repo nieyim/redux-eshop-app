@@ -7,4 +7,8 @@ export const cartApi = {
         const url = 'api/carts';
         return axiosClient.get(url);
     },
+    addCart(data: Cart) {
+        const url = 'api/carts';
+        return axiosClient.post(url, data);
+    },
 };

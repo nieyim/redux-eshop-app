@@ -1,11 +1,12 @@
 import AddIcon from '@mui/icons-material/Add';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import RemoveIcon from '@mui/icons-material/Remove';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Box, Button, ButtonProps, IconButton, IconButtonProps, Rating, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
+import { cartApi } from '../../../api';
 import { Product } from '../../../models';
 
 export interface ProductInfoProps {
@@ -57,6 +58,14 @@ export function ProductInfo(props: ProductInfoProps) {
         borderRadius: '50px',
         border: '1px solid #ebebeb',
     });
+
+    const handleAddToCart = async () => {
+        const data = {
+            products: product,
+            quantity: quantity,
+        };
+        await cartApi.addCart(data);
+    };
     return (
         <Box mb={4}>
             <Typography variant="h4" fontSize={32} fontWeight={600}>
@@ -101,6 +110,7 @@ export function ProductInfo(props: ProductInfoProps) {
                     color="secondary"
                     disableElevation
                     sx={{ display: 'flex' }}
+                    onClick={handleAddToCart}
                 >
                     Add to Cart
                 </AddToCartButton>
