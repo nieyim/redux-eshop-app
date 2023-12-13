@@ -2,11 +2,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import { selectCartList } from '../../features/cart/cartSlice';
-import { useEffect, useState } from 'react';
-import { cartThunk } from '../../features/cart/cartThunk';
-import { cartApi } from '../../api';
+import { Tooltip } from '@mui/material';
 
 export interface CartButtonProps {}
 
@@ -20,33 +18,25 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 }));
 
 export function CartButton(props: CartButtonProps) {
-    const [count, setCount] = useState<number>(0);
-
-    useEffect(() => {
-        (async () => {
-            try {
-                const cart = (await cartApi.getAll()).data;
-                setCount(cart.length);
-            } catch (error) {
-                console.log(error);
-            }
-        })();
-    });
-
-    console.log('rerender');
+    const cartList = useAppSelector(selectCartList);
+    const itemCount = cartList.length;
+    console.log(cartList);
     return (
-        <IconButton
-            aria-label="cart"
-            sx={{
-                position: 'fixed',
-                bottom: '50%', // Center vertically
-                right: '16px', // Margin from the right
-                transform: 'translateY(50%)', // Center vertically
-            }}
-        >
-            <StyledBadge badgeContent={count} color="secondary">
-                <ShoppingCartIcon />
-            </StyledBadge>
-        </IconButton>
+        <Tooltip title={`You have ${itemCount} items in your cart`}>
+            <IconButton
+                aria-label="cart"
+                sx={{
+                    position: 'fixed',
+                    bottom: '50%', // Center vertically
+                    right: '16px', // Margin from the right
+                    transform: 'translateY(50%)', // Center vertically
+                }}
+                href="/carts"
+            >
+                <StyledBadge badgeContent={itemCount} color="secondary">
+                    <ShoppingCartIcon />
+                </StyledBadge>
+            </IconButton>
+        </Tooltip>
     );
 }

@@ -7,6 +7,7 @@ import { productThunk } from '../features/product/productThunk';
 import { Product } from '../models';
 import { ProductCard, ProductFilters, ProductSearch, ProductSort } from '../features/product/components';
 import { CartButton } from '../components/common';
+import { cartThunk } from '../features/cart/cartThunk';
 
 export interface FilterOptions {
     field: string;
@@ -120,6 +121,7 @@ export function ProductPage() {
 
     useEffect(() => {
         dispatch(productThunk());
+        dispatch(cartThunk());
     }, [dispatch]);
 
     return (

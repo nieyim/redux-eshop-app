@@ -8,3 +8,4 @@ export * from './ProductPage';
 export * from './BlogPage';
 export * from './BlogDetailPage';
 export * from './ProductDetailPage';
+export * from './CartPage';

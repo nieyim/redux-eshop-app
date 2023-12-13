@@ -13,6 +13,7 @@ import {
     AdminProductPage,
     BlogDetail,
     BlogPage,
+    CartPage,
     DashboardPage,
     HomePage,
     LoginPage,
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/blogs" element={<BlogPage />} />
                 <Route path="/blogs/:blogID" element={<BlogDetail />} />
+                <Route path="/carts" element={<CartPage />} />
                 <Route element={<PrivateRoute />}>
                     <Route path="/admin" element={<AdminPage />}>
                         <Route path="/admin/dashboard" element={<DashboardPage />} />

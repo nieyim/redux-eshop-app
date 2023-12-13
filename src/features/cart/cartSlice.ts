@@ -6,28 +6,52 @@ import CartState from './models/cartModel';
 const initialState: CartState = {
     loading: false,
     error: '',
-    cartList: {
-        products: {
-            id: 0,
-            title: '',
-            summary: '',
-            price: 0,
-            discountPercentage: 0,
-            rating: 1,
-            stock: 1,
-            brand: '',
-            category: '',
-            thumbnail: '',
-            images: [],
-        },
-        quantity: 0,
-    },
+    cartList: [],
 };
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        // Add a reducer to handle adding a product to the cart
+        addToCart: (state: CartState, action) => {
+            const { products, quantity } = action.payload;
+            console.log(products);
+            const existingItem = state.cartList.find((item) => item.products.id === products.id);
+
+            if (existingItem) {
+                // If the item is already in the cart, update the quantity
+                existingItem.quantity += quantity;
+            } else {
+                // If the item is not in the cart, add it
+                state.cartList.push({
+                    products: products,
+                    quantity: quantity,
+                });
+            }
+        },
+        removeFromCart: (state: CartState, action) => {
+            const id = action.payload;
+            state.cartList = state.cartList.filter((item) => item.products.id !== id);
+        },
+        increaseQuantity: (state: CartState, action) => {
+            const id = action.payload;
+            const product = state.cartList.find((item) => item.products.id === id);
+            if (product) {
+                product.quantity++;
+            }
+        },
+        decreaseQuantity: (state: CartState, action) => {
+            const id = action.payload;
+            const product = state.cartList.find((item) => item.products.id === id);
+            if (product) {
+                product.quantity--;
+            }
+            if (product?.quantity === 0) {
+                state.cartList = state.cartList.filter((item) => item.products.id !== id);
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(cartThunk.pending, (state: CartState) => {
@@ -45,4 +69,5 @@ export const cartSlice = createSlice({
 });
 
 export default cartSlice.reducer;
+export const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity } = cartSlice.actions;
 export const selectCartList = (state: RootState) => state.cart.cartList;

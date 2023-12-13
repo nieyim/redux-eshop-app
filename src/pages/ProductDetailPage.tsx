@@ -7,10 +7,13 @@ import { PublicFooter, PublicHeader } from '../components/layout';
 import { ProductCarousel, ProductInfo, ProductRealted, ProductTab } from '../features/product/components';
 import { Product } from '../models';
 import { CartButton } from '../components/common';
+import { cartThunk } from '../features/cart/cartThunk';
+import { useAppDispatch } from '../app/hooks';
 
 export function ProductDetailPage() {
     const { productID } = useParams<{ productID: string }>(); // Extract the productID from the URL params
     const [currentProduct, setCurentProduct] = useState<Product>();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!productID) return;
@@ -23,6 +26,10 @@ export function ProductDetailPage() {
             }
         })();
     }, [productID]);
+
+    useEffect(() => {
+        dispatch(cartThunk());
+    }, [dispatch]);
 
     const renderBreadcrumbs = (
         <Breadcrumbs aria-label="breadcrumb" separator="›">
