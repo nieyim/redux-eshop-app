@@ -19,7 +19,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 
 export interface CartTableProps {}
 
-export default function CartTable(props: CartTableProps) {
+export function CartTable(props: CartTableProps) {
     const dispatch = useAppDispatch();
     const cartList = useAppSelector(selectCartList);
 
@@ -39,17 +39,17 @@ export default function CartTable(props: CartTableProps) {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead sx={{ textTransform: 'uppercase' }}>
                     <TableRow>
-                        <TableCell sx={{ fontSize: 17 }}>Product</TableCell>
-                        <TableCell align="center" sx={{ fontSize: 17 }}>
+                        <TableCell sx={{ fontSize: 18 }}>Product</TableCell>
+                        <TableCell align="center" sx={{ fontSize: 18 }}>
                             Price
                         </TableCell>
-                        <TableCell align="center" sx={{ fontSize: 17 }}>
+                        <TableCell align="center" sx={{ fontSize: 18 }}>
                             Quantity
                         </TableCell>
-                        <TableCell align="center" sx={{ fontSize: 17 }}>
+                        <TableCell align="center" sx={{ fontSize: 18 }}>
                             Total
                         </TableCell>
-                        <TableCell align="center" sx={{ fontSize: 17 }}></TableCell>
+                        <TableCell align="center" sx={{ fontSize: 18 }}></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -74,13 +74,13 @@ export default function CartTable(props: CartTableProps) {
                                             width={90}
                                             style={{ objectFit: 'cover' }}
                                         />
-                                        <Typography variant="body1" fontWeight={500}>
+                                        <Typography variant="body1" fontWeight={500} fontSize={17}>
                                             {row.products.title}
                                         </Typography>
                                     </Stack>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <Typography variant="body1" fontWeight={500} color="secondary">
+                                    <Typography variant="body1" fontWeight={500} color="secondary" fontSize={17}>
                                         $ {calculatedPrice}
                                     </Typography>
                                 </TableCell>
@@ -98,7 +98,7 @@ export default function CartTable(props: CartTableProps) {
                                     </Stack>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <Typography variant="body1" fontWeight={500} color="secondary">
+                                    <Typography variant="body1" fontWeight={500} color="secondary" fontSize={17}>
                                         $ {totalPrice}
                                     </Typography>
                                 </TableCell>
