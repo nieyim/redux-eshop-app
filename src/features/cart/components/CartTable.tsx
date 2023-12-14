@@ -34,11 +34,38 @@ export function CartTable(props: CartTableProps) {
         }
         dispatch(removeFromCart(id));
     };
-    const handleIncreaseQuantity = (id: number) => {
+    const handleIncreaseQuantity = async (id: number, cartId?: number) => {
         dispatch(increaseQuantity(id));
+        try {
+            if (cartId) {
+                const Cart = (await cartApi.getCartById(cartId)).data;
+                const data = {
+                    ...Cart,
+                    quantity: Cart.quantity + 1,
+                };
+                await cartApi.updateCartItem(data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
-    const handleDecreaseQuantity = (id: number) => {
+    const handleDecreaseQuantity = async (id: number, cartId?: number) => {
         dispatch(decreaseQuantity(id));
+        try {
+            if (cartId) {
+                const Cart = (await cartApi.getCartById(cartId)).data;
+                const data = {
+                    ...Cart,
+                    quantity: Cart.quantity - 1,
+                };
+                await cartApi.updateCartItem(data);
+                if (data.quantity === 0) {
+                    await cartApi.deleteCartItem(cartId);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     console.log(cartList);
@@ -94,13 +121,13 @@ export function CartTable(props: CartTableProps) {
                                 </TableCell>
                                 <TableCell align="center">
                                     <Stack direction="row" justifyContent="space-around" alignItems="center">
-                                        <IconButton onClick={() => handleDecreaseQuantity(row.products.id)}>
+                                        <IconButton onClick={() => handleDecreaseQuantity(row.products.id, row.id)}>
                                             <RemoveIcon fontSize="small" />
                                         </IconButton>
                                         <Typography variant="body1" fontWeight={500}>
                                             {row.quantity}
                                         </Typography>
-                                        <IconButton onClick={() => handleIncreaseQuantity(row.products.id)}>
+                                        <IconButton onClick={() => handleIncreaseQuantity(row.products.id, row.id)}>
                                             <AddIcon fontSize="small" />
                                         </IconButton>
                                     </Stack>
