@@ -16,6 +16,7 @@ import { decreaseQuantity, increaseQuantity, removeFromCart, selectCartList } fr
 import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { cartApi } from '../../../api';
 
 export interface CartTableProps {}
 
@@ -23,7 +24,14 @@ export function CartTable(props: CartTableProps) {
     const dispatch = useAppDispatch();
     const cartList = useAppSelector(selectCartList);
 
-    const handleClearButtonClick = (id: number) => {
+    const handleClearButtonClick = async (id: number, cartId?: number) => {
+        try {
+            if (cartId) {
+                await cartApi.deleteCartItem(cartId);
+            }
+        } catch (error) {
+            console.log(error);
+        }
         dispatch(removeFromCart(id));
     };
     const handleIncreaseQuantity = (id: number) => {
@@ -104,7 +112,7 @@ export function CartTable(props: CartTableProps) {
                                 </TableCell>
                                 <TableCell align="center">
                                     <Tooltip title="Delete ">
-                                        <IconButton onClick={() => handleClearButtonClick(row.products.id)}>
+                                        <IconButton onClick={() => handleClearButtonClick(row.products.id, row.id)}>
                                             <ClearIcon />
                                         </IconButton>
                                     </Tooltip>

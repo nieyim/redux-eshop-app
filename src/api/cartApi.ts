@@ -12,14 +12,18 @@ export const cartApi = {
         return axiosClient.post(url, data);
     },
     checkCartItem(productId: number): Promise<Cart | null> {
-        const url = 'api/carts'; // Assuming you retrieve the entire cart
+        const url = 'api/carts';
         return axiosClient.get(url).then((response) => {
             const existingCartItem = response.data.find((item: Cart) => item.products.id === productId);
             return existingCartItem || null;
         });
     },
     updateCartItem(cartItem: Cart): Promise<void> {
-        const url = `api/carts/${cartItem.id}`; // Change 'api/carts' to your actual endpoint
+        const url = `api/carts/${cartItem.id}`;
         return axiosClient.put(url, cartItem);
+    },
+    deleteCartItem(id: number) {
+        const url = `api/carts/${id}`;
+        return axiosClient.delete(url);
     },
 };

@@ -3,12 +3,18 @@ import * as React from 'react';
 import { PublicFooter, PublicHeader } from '../components/layout';
 import { useAppDispatch } from '../app/hooks';
 import { cartThunk } from '../features/cart/cartThunk';
-import { useEffect } from 'react';
-import { CartCoupon, CartTable } from '../features/cart/components';
+import { useEffect, useState } from 'react';
+import { CartCoupon, CartTable, CartTotal } from '../features/cart/components';
 
 export interface CartPageProps {}
 
 export function CartPage(props: CartPageProps) {
+    const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+
+    const handleApplyCoupon = (couponCode: string) => {
+        setAppliedCoupon(couponCode);
+    };
+
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(cartThunk());
@@ -28,8 +34,13 @@ export function CartPage(props: CartPageProps) {
                                 Continue Shopping
                             </Button>
                         </Grid>
-                        <Grid item xs={12} my={3}>
-                            <CartCoupon />
+                        <Grid container item xs={12} my={3}>
+                            <Grid item xs={12} md={6} mb={3}>
+                                <CartCoupon onApplyCoupon={handleApplyCoupon} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <CartTotal appliedCoupon={appliedCoupon} />
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Container>

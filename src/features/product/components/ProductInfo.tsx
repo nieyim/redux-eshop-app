@@ -11,6 +11,7 @@ import { Product } from '../../../models';
 import { addToCart } from '../../cart/cartSlice';
 import { cartApi } from '../../../api';
 import { priceCalculate } from '../../../utils/priceCalculate';
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface ProductInfoProps {
     product: Product;
@@ -88,6 +89,12 @@ export function ProductInfo(props: ProductInfoProps) {
             }
             // Dispatch the addToCart action to update the local state
             dispatch(addToCart(data));
+            toast.success('Product added to the cart successfully!', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 2000,
+                theme: 'dark',
+                hideProgressBar: true,
+            });
         } catch (error) {
             console.error('Error adding item to cart:', error);
         }
@@ -149,6 +156,7 @@ export function ProductInfo(props: ProductInfoProps) {
                     </FunctionButton>
                 </Stack>
             </Stack>
+            <ToastContainer />
         </Box>
     );
 }
