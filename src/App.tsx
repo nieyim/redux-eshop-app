@@ -10,6 +10,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import {
+    AdminBlogPage,
     AdminProductPage,
     BlogDetail,
     BlogPage,
@@ -27,6 +28,7 @@ import { PrivateRoute } from './utils/PrivateRoute';
 import theme from './utils/theme';
 import { AdminProductList, AdminAddEditProduct } from './features/product/components';
 import { ScrollToTopButton } from './components/common';
+import { AdminBlogList } from './features/blog/components';
 
 function App() {
     return (
@@ -49,6 +51,9 @@ function App() {
                             <Route path="/admin/products" element={<AdminProductList />} />
                             <Route path="/admin/products/add" element={<AdminAddEditProduct />} />
                             <Route path="/admin/products/:productID" element={<AdminAddEditProduct />} />
+                        </Route>
+                        <Route path="/admin/posts" element={<AdminBlogPage />}>
+                            <Route path="/admin/posts" element={<AdminBlogList />} />
                         </Route>
                     </Route>
                 </Route>
