@@ -5,7 +5,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import { Button, ButtonProps, Container, Grid, LinkProps, Stack, Typography, Link, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { postApi } from '../api';
 import { PublicFooter, PublicHeader } from '../components/layout';
 import { Post } from '../models';
@@ -61,6 +61,7 @@ export function BlogDetail() {
     const [blogList, setBlogList] = useState<Post[]>([]);
     const isXsScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const blogPopular = [...blogList].sort((a, b) => b.reactions - a.reactions).slice(0, 5);
+    const navigate = useNavigate();
 
     console.log(currentBlog);
 
@@ -74,9 +75,10 @@ export function BlogDetail() {
                 setBlogList(bloglist);
             } catch (error) {
                 console.log(error);
+                navigate('/notfound');
             }
         })();
-    }, [blogID]);
+    }, [blogID, navigate]);
 
     return (
         <React.Fragment>
