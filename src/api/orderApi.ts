@@ -11,4 +11,8 @@ export const orderApi = {
         const url = 'api/orders';
         return axiosClient.post(url, data);
     },
+    deleteOrder(id: any) {
+        const url = `api/orders/${id}`;
+        return axiosClient.delete(url);
+    },
 };

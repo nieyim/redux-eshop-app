@@ -16,21 +16,20 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { postApi } from '../../../api';
+import { userApi } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { Post } from '../../../models';
-import { formatDateTime } from '../../../utils/toDate';
-import { selectBlogList, selectIsLoading } from '../blogSlice';
-import { blogThunk } from '../blogThunk';
+import { User } from '../../../models';
+import { selectIsLoading, selectUserList } from '../userSlice';
+import { userThunk } from '../userThunk';
 
-export function AdminBlogList() {
+export function AdminUserList() {
     const dispatch = useAppDispatch();
     // const navigate = useNavigate();
-    const data = useAppSelector(selectBlogList);
+    const data = useAppSelector(selectUserList);
     const loading = useAppSelector(selectIsLoading);
     // const [showLoadingSpinner, setShowLoadingSpinner] = useState(true);
     const [open, setOpen] = useState(false); // Open dialog state
-    const [blogSelected, setBlogSelected] = useState<Post>(); // Blog choose when click
+    const [userSelected, setUserSelected] = useState<User>(); // User choose when click
     const [paginationModel, setPaginationModel] = useState({
         // Current pagination model state
         page: Number(sessionStorage.getItem('currentPage')),
@@ -38,24 +37,24 @@ export function AdminBlogList() {
     });
 
     useEffect(() => {
-        // Dispatch an action to fetch blog data
-        dispatch(blogThunk());
+        // Dispatch an action to fetch user data
+        dispatch(userThunk());
     }, [dispatch]);
 
     // const handleClick = () => {
-    //     // Navigate to the "Add New Blog" page
+    //     // Navigate to the "Add New User" page
     //     navigate('/admin/posts/add');
     //     sessionStorage.setItem('currentPage', paginationModel.page.toString());
     // };
 
-    const handleRemoveBlog = async (blog?: Post) => {
+    const handleRemoveUser = async (user?: User) => {
         // Handle remove button click
         try {
-            const response = await postApi.deletePost(blog?.id);
+            const response = await userApi.deleteUser(user?.id);
             console.log(response.status);
             if (response.status === 200) {
-                // Show a success toast when a blog is deleted
-                toast.success(`Blog deleted successfully!`, {
+                // Show a success toast when a user is deleted
+                toast.success(`User deleted successfully!`, {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 1500,
                     theme: 'dark',
@@ -63,35 +62,35 @@ export function AdminBlogList() {
                 });
             } else {
                 // Show an error toast when the deletion fails
-                toast.error(`Failed to delete the blog. Please try again.`, {
+                toast.error(`Failed to delete user. Please try again.`, {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 1500,
                     theme: 'dark',
                     hideProgressBar: true,
                 });
             }
-            dispatch(blogThunk());
+            dispatch(userThunk());
         } catch (error) {
             console.log('Failed');
         }
         setOpen(false);
     };
 
-    // const handleEditBlog = async (blog?: Post) => {
-    //     // Navigate to the edit page for the selected blog
+    // const handleEditUser = async (user?: User) => {
+    //     // Navigate to the edit page for the selected user
     //     try {
-    //         navigate(`/admin/posts/${blog?.id}`);
+    //         navigate(`/admin/posts/${user?.id}`);
     //         sessionStorage.setItem('currentPage', paginationModel.page.toString());
     //     } catch (error) {
     //         console.log('Failed');
     //     }
     // };
 
-    const handleClickOpen = (blog: Post) => {
-        // Open the dialog for confirming blog deletion
+    const handleClickOpen = (user: User) => {
+        // Open the dialog for confirming user deletion
         setOpen(true);
-        console.log(blog);
-        setBlogSelected(blog);
+        console.log(user);
+        setUserSelected(user);
     };
 
     const handleClose = () => {
@@ -99,42 +98,43 @@ export function AdminBlogList() {
         setOpen(false);
     };
 
-    const rows = data.map((blog) => ({
+    const rows = data.map((user) => ({
         // Transform the b.log data for the DataGrid
-        id: blog.id,
-        title: blog.title,
-        author: blog.user.firstName,
-        reaction: blog.reactions,
-        tags: blog.tags.join(', '),
-        date: formatDateTime(blog.createdAt),
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        name: user.firstName + ' ' + user.maidenName + ' ' + user.lastName,
+        gender: user.gender.charAt(0).toUpperCase() + user.gender.slice(1),
+        email: user.email,
+        phone: user.phone,
+        userName: user.username,
     }));
 
     const columns: GridColDef[] = [
         // Define the columns for the DataGrid
         { field: 'id', headerName: 'ID', headerAlign: 'center', align: 'center', flex: 1, maxWidth: 60 },
-        { field: 'title', headerName: 'Post Name', headerAlign: 'center', align: 'center', flex: 1, minWidth: 500 },
-        { field: 'author', headerName: 'Author', headerAlign: 'center', align: 'center', flex: 1, minWidth: 200 },
+        { field: 'name', headerName: 'Full Name', headerAlign: 'center', align: 'center', flex: 1, minWidth: 300 },
+        { field: 'gender', headerName: 'Gender', headerAlign: 'center', align: 'center', flex: 1, minWidth: 100 },
         {
-            field: 'reaction',
-            headerName: 'Reaction',
+            field: 'email',
+            headerName: 'Email',
             align: 'center',
-            type: 'number',
             headerAlign: 'center',
             flex: 1,
-            minWidth: 100,
+            minWidth: 300,
         },
         {
-            field: 'tags',
+            field: 'phone',
             align: 'center',
-            headerName: 'Tags',
+            headerName: 'Phone Number',
             headerAlign: 'center',
             flex: 1,
-            minWidth: 250,
+            minWidth: 200,
         },
         {
-            field: 'date',
+            field: 'userName',
             align: 'center',
-            headerName: 'Date Created',
+            headerName: 'User Name',
             headerAlign: 'center',
             flex: 1,
             minWidth: 200,
@@ -172,7 +172,7 @@ export function AdminBlogList() {
             <Stack direction="row" justifyContent="space-between" spacing={4}>
                 <Stack spacing={1}>
                     <Typography variant="h4" fontSize={24}>
-                        Blogs
+                        Users
                     </Typography>
                     <Stack alignItems="center" direction="row" spacing={1}></Stack>
                 </Stack>
@@ -215,10 +215,11 @@ export function AdminBlogList() {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{'Delete A Blog'}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{'Delete A User'}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete <strong>{blogSelected?.title}</strong>? <br />
+                        Are you sure you want to delete{' '}
+                        <strong>{userSelected?.firstName + ' ' + userSelected?.lastName}</strong>? <br />
                         This action can&apos;t be undo!
                     </DialogContentText>
                 </DialogContent>
@@ -226,7 +227,7 @@ export function AdminBlogList() {
                     <Button onClick={handleClose} color="info">
                         Cancel
                     </Button>
-                    <Button onClick={() => handleRemoveBlog(blogSelected)} autoFocus color="error">
+                    <Button onClick={() => handleRemoveUser(userSelected)} autoFocus color="error">
                         Delete
                     </Button>
                 </DialogActions>

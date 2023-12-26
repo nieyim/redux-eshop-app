@@ -11,7 +11,9 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import {
     AdminBlogPage,
+    AdminOrderPage,
     AdminProductPage,
+    AdminUserPage,
     BlogDetail,
     BlogPage,
     CartPage,
@@ -29,6 +31,7 @@ import theme from './utils/theme';
 import { AdminProductList, AdminAddEditProduct } from './features/product/components';
 import { ScrollToTopButton } from './components/common';
 import { AdminBlogList } from './features/blog/components';
+import { AdminUserList } from './features/user/components/AdminUserList';
 
 function App() {
     return (
@@ -54,6 +57,12 @@ function App() {
                         </Route>
                         <Route path="/admin/posts" element={<AdminBlogPage />}>
                             <Route path="/admin/posts" element={<AdminBlogList />} />
+                        </Route>
+                        <Route path="/admin/users" element={<AdminUserPage />}>
+                            <Route path="/admin/users" element={<AdminUserList />} />
+                        </Route>
+                        <Route path="/admin/orders" element={<AdminOrderPage />}>
+                            <Route path="/admin/orders" element={<AdminUserList />} />
                         </Route>
                     </Route>
                 </Route>

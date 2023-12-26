@@ -15,4 +15,8 @@ export const userApi = {
         const url = `api/users/${id}`;
         return axiosClient.get(url);
     },
+    deleteUser(id: any) {
+        const url = `api/users/${id}`;
+        return axiosClient.delete(url);
+    },
 };

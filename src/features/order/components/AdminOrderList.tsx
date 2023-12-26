@@ -16,21 +16,20 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { postApi } from '../../../api';
+import { orderApi, postApi } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { Post } from '../../../models';
-import { formatDateTime } from '../../../utils/toDate';
-import { selectBlogList, selectIsLoading } from '../blogSlice';
-import { blogThunk } from '../blogThunk';
+import { Order } from '../../../models';
+import { selectIsLoading, selectOrderList } from '../orderSlice';
+import { orderThunk } from '../orderThunk';
 
-export function AdminBlogList() {
+export function AdminOrderList() {
     const dispatch = useAppDispatch();
     // const navigate = useNavigate();
-    const data = useAppSelector(selectBlogList);
+    const data = useAppSelector(selectOrderList);
     const loading = useAppSelector(selectIsLoading);
     // const [showLoadingSpinner, setShowLoadingSpinner] = useState(true);
     const [open, setOpen] = useState(false); // Open dialog state
-    const [blogSelected, setBlogSelected] = useState<Post>(); // Blog choose when click
+    const [orderSelected, setOrderSelected] = useState<Order>(); // Order choose when click
     const [paginationModel, setPaginationModel] = useState({
         // Current pagination model state
         page: Number(sessionStorage.getItem('currentPage')),
@@ -38,24 +37,24 @@ export function AdminBlogList() {
     });
 
     useEffect(() => {
-        // Dispatch an action to fetch blog data
-        dispatch(blogThunk());
+        // Dispatch an action to fetch order data
+        dispatch(orderThunk());
     }, [dispatch]);
 
     // const handleClick = () => {
-    //     // Navigate to the "Add New Blog" page
+    //     // Navigate to the "Add New Order" page
     //     navigate('/admin/posts/add');
     //     sessionStorage.setItem('currentPage', paginationModel.page.toString());
     // };
 
-    const handleRemoveBlog = async (blog?: Post) => {
+    const handleRemoveOrder = async (order?: Order) => {
         // Handle remove button click
         try {
-            const response = await postApi.deletePost(blog?.id);
+            const response = await orderApi.deleteOrder(order?.id);
             console.log(response.status);
             if (response.status === 200) {
-                // Show a success toast when a blog is deleted
-                toast.success(`Blog deleted successfully!`, {
+                // Show a success toast when a order is deleted
+                toast.success(`Order deleted successfully!`, {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 1500,
                     theme: 'dark',
@@ -63,35 +62,35 @@ export function AdminBlogList() {
                 });
             } else {
                 // Show an error toast when the deletion fails
-                toast.error(`Failed to delete the blog. Please try again.`, {
+                toast.error(`Failed to delete order. Please try again.`, {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 1500,
                     theme: 'dark',
                     hideProgressBar: true,
                 });
             }
-            dispatch(blogThunk());
+            dispatch(orderThunk());
         } catch (error) {
             console.log('Failed');
         }
         setOpen(false);
     };
 
-    // const handleEditBlog = async (blog?: Post) => {
-    //     // Navigate to the edit page for the selected blog
+    // const handleEditOrder = async (order?: Order) => {
+    //     // Navigate to the edit page for the selected order
     //     try {
-    //         navigate(`/admin/posts/${blog?.id}`);
+    //         navigate(`/admin/posts/${order?.id}`);
     //         sessionStorage.setItem('currentPage', paginationModel.page.toString());
     //     } catch (error) {
     //         console.log('Failed');
     //     }
     // };
 
-    const handleClickOpen = (blog: Post) => {
-        // Open the dialog for confirming blog deletion
+    const handleClickOpen = (order: Order) => {
+        // Open the dialog for confirming order deletion
         setOpen(true);
-        console.log(blog);
-        setBlogSelected(blog);
+        console.log(order);
+        setOrderSelected(order);
     };
 
     const handleClose = () => {
@@ -99,42 +98,36 @@ export function AdminBlogList() {
         setOpen(false);
     };
 
-    const rows = data.map((blog) => ({
+    const rows = data.map((order) => ({
         // Transform the b.log data for the DataGrid
-        id: blog.id,
-        title: blog.title,
-        author: blog.user.firstName,
-        reaction: blog.reactions,
-        tags: blog.tags.join(', '),
-        date: formatDateTime(blog.createdAt),
+        id: order.id,
     }));
 
     const columns: GridColDef[] = [
         // Define the columns for the DataGrid
         { field: 'id', headerName: 'ID', headerAlign: 'center', align: 'center', flex: 1, maxWidth: 60 },
-        { field: 'title', headerName: 'Post Name', headerAlign: 'center', align: 'center', flex: 1, minWidth: 500 },
-        { field: 'author', headerName: 'Author', headerAlign: 'center', align: 'center', flex: 1, minWidth: 200 },
+        { field: 'name', headerName: 'Full Name', headerAlign: 'center', align: 'center', flex: 1, minWidth: 300 },
+        { field: 'gender', headerName: 'Gender', headerAlign: 'center', align: 'center', flex: 1, minWidth: 100 },
         {
-            field: 'reaction',
-            headerName: 'Reaction',
+            field: 'email',
+            headerName: 'Email',
             align: 'center',
-            type: 'number',
             headerAlign: 'center',
             flex: 1,
-            minWidth: 100,
+            minWidth: 300,
         },
         {
-            field: 'tags',
+            field: 'phone',
             align: 'center',
-            headerName: 'Tags',
+            headerName: 'Phone Number',
             headerAlign: 'center',
             flex: 1,
-            minWidth: 250,
+            minWidth: 200,
         },
         {
-            field: 'date',
+            field: 'userName',
             align: 'center',
-            headerName: 'Date Created',
+            headerName: 'Order Name',
             headerAlign: 'center',
             flex: 1,
             minWidth: 200,
@@ -172,7 +165,7 @@ export function AdminBlogList() {
             <Stack direction="row" justifyContent="space-between" spacing={4}>
                 <Stack spacing={1}>
                     <Typography variant="h4" fontSize={24}>
-                        Blogs
+                        Orders
                     </Typography>
                     <Stack alignItems="center" direction="row" spacing={1}></Stack>
                 </Stack>
@@ -215,10 +208,10 @@ export function AdminBlogList() {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{'Delete A Blog'}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{'Delete An Order'}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete <strong>{blogSelected?.title}</strong>? <br />
+                        Are you sure you want to delete <strong>{orderSelected?.id}</strong>? <br />
                         This action can&apos;t be undo!
                     </DialogContentText>
                 </DialogContent>
@@ -226,7 +219,7 @@ export function AdminBlogList() {
                     <Button onClick={handleClose} color="info">
                         Cancel
                     </Button>
-                    <Button onClick={() => handleRemoveBlog(blogSelected)} autoFocus color="error">
+                    <Button onClick={() => handleRemoveOrder(orderSelected)} autoFocus color="error">
                         Delete
                     </Button>
                 </DialogActions>

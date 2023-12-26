@@ -4,6 +4,8 @@ import dashboardSlice from '../features/dashboard/dashboardSlice';
 import productSlice from '../features/product/productSlice';
 import blogSlice from '../features/blog/blogSlice';
 import cartSlice from '../features/cart/cartSlice';
+import userSlice from '../features/user/userSlice';
+import orderSlice from '../features/order/orderSlice';
 
 const store = configureStore({
     reducer: {
@@ -12,6 +14,8 @@ const store = configureStore({
         product: productSlice,
         blog: blogSlice,
         cart: cartSlice,
+        user: userSlice,
+        order: orderSlice,
     },
 });
 
