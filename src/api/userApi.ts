@@ -15,6 +15,10 @@ export const userApi = {
         const url = `api/users/${id}`;
         return axiosClient.get(url);
     },
+    addUser(data: Partial<User>) {
+        const url = 'api/users';
+        return axiosClient.post(url, data);
+    },
     deleteUser(id: any) {
         const url = `api/users/${id}`;
         return axiosClient.delete(url);

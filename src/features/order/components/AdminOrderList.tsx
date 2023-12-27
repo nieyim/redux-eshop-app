@@ -16,7 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { orderApi, postApi } from '../../../api';
+import { orderApi } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { Order } from '../../../models';
 import { selectIsLoading, selectOrderList } from '../orderSlice';
@@ -101,36 +101,32 @@ export function AdminOrderList() {
     const rows = data.map((order) => ({
         // Transform the b.log data for the DataGrid
         id: order.id,
+        userID: order.userId,
+        products: order.products.map((product) => product.title).join(', '),
+        totalQuantity: order.totalQuantity,
+        price: order.discountedTotal,
     }));
 
     const columns: GridColDef[] = [
         // Define the columns for the DataGrid
-        { field: 'id', headerName: 'ID', headerAlign: 'center', align: 'center', flex: 1, maxWidth: 60 },
-        { field: 'name', headerName: 'Full Name', headerAlign: 'center', align: 'center', flex: 1, minWidth: 300 },
-        { field: 'gender', headerName: 'Gender', headerAlign: 'center', align: 'center', flex: 1, minWidth: 100 },
+        { field: 'id', headerName: 'Order ID', headerAlign: 'center', align: 'center', flex: 1, minWidth: 100 },
+        { field: 'userID', headerName: 'User ID', headerAlign: 'center', align: 'center', flex: 1, minWidth: 100 },
+        { field: 'products', headerName: 'Products', headerAlign: 'center', align: 'center', flex: 1, minWidth: 500 },
         {
-            field: 'email',
-            headerName: 'Email',
+            field: 'totalQuantity',
+            headerName: 'Quantity',
             align: 'center',
             headerAlign: 'center',
             flex: 1,
-            minWidth: 300,
+            minWidth: 100,
         },
         {
-            field: 'phone',
+            field: 'price',
             align: 'center',
-            headerName: 'Phone Number',
+            headerName: 'Price ($)',
             headerAlign: 'center',
             flex: 1,
-            minWidth: 200,
-        },
-        {
-            field: 'userName',
-            align: 'center',
-            headerName: 'Order Name',
-            headerAlign: 'center',
-            flex: 1,
-            minWidth: 200,
+            minWidth: 100,
         },
         {
             field: 'feature',
@@ -211,7 +207,7 @@ export function AdminOrderList() {
                 <DialogTitle id="alert-dialog-title">{'Delete An Order'}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete <strong>{orderSelected?.id}</strong>? <br />
+                        Are you sure you want to delete this order? <br />
                         This action can&apos;t be undo!
                     </DialogContentText>
                 </DialogContent>

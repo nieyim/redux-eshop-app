@@ -45,12 +45,16 @@ export const dashboardThunk = createAsyncThunk('dashboard/fetchData', async () =
         }
 
         const genderCount: GroupedItem[] = userData.reduce((result: GroupedItem[], item: any) => {
-            const existingGroup = result.find((group: GroupedItem) => group.name === item.gender);
-            if (existingGroup) {
-                existingGroup.value++;
-            } else {
-                result.push({ name: item.gender, value: 1 });
+            // Check if item.gender is defined and truthy
+            if (item.gender) {
+                const existingGroup = result.find((group: GroupedItem) => group.name === item.gender);
+                if (existingGroup) {
+                    existingGroup.value++;
+                } else {
+                    result.push({ name: item.gender, value: 1 });
+                }
             }
+
             return result;
         }, []);
 

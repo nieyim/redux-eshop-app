@@ -104,7 +104,7 @@ export function AdminUserList() {
         firstName: user.firstName,
         lastName: user.lastName,
         name: user.firstName + ' ' + user.maidenName + ' ' + user.lastName,
-        gender: user.gender.charAt(0).toUpperCase() + user.gender.slice(1),
+        gender: user.gender?.charAt(0).toUpperCase() + user.gender?.slice(1),
         email: user.email,
         phone: user.phone,
         userName: user.username,

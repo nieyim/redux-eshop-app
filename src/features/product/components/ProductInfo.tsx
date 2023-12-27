@@ -71,6 +71,7 @@ export function ProductInfo(props: ProductInfoProps) {
                 quantity: quantity,
             };
 
+            if (data.quantity === 0) return;
             // Call API to check if the product is already in the cart
             const cartItem = await cartApi.checkCartItem(data.products.id);
 

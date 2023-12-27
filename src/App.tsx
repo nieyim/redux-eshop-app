@@ -32,6 +32,7 @@ import { AdminProductList, AdminAddEditProduct } from './features/product/compon
 import { ScrollToTopButton } from './components/common';
 import { AdminBlogList } from './features/blog/components';
 import { AdminUserList } from './features/user/components/AdminUserList';
+import { AdminOrderList } from './features/order/components/AdminOrderList';
 
 function App() {
     return (
@@ -62,7 +63,7 @@ function App() {
                             <Route path="/admin/users" element={<AdminUserList />} />
                         </Route>
                         <Route path="/admin/orders" element={<AdminOrderPage />}>
-                            <Route path="/admin/orders" element={<AdminUserList />} />
+                            <Route path="/admin/orders" element={<AdminOrderList />} />
                         </Route>
                     </Route>
                 </Route>

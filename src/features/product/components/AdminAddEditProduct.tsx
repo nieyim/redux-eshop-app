@@ -33,9 +33,10 @@ export function AdminAddEditProduct() {
                 setSelectedProduct(product);
             } catch (error) {
                 console.log(error);
+                navigate('/notfound');
             }
         })();
-    }, [productID]);
+    }, [productID, navigate]);
 
     console.log(selectedProduct);
 
