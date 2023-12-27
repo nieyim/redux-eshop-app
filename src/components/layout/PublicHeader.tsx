@@ -75,7 +75,7 @@ export function PublicHeader(props: Props) {
                         variant="h6"
                         underline="none"
                         color="inherit"
-                        href="/premium-themes/onepirate/"
+                        href="/home"
                         sx={{
                             fontSize: 24,
                             justifyContent: 'flex-start',

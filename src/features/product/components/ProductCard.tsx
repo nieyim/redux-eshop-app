@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Product } from '../../../models';
 import { CustomLabel } from '../../../components/common/CustomLabel';
 import { CardActionArea } from '@mui/material';
+import { priceCalculate } from '../../../utils/priceCalculate';
 
 // ----------------------------------------------------------------------
 
@@ -28,7 +29,7 @@ export function ProductCard({ product }: { product: Product }) {
         />
     );
 
-    const discountedPrice = (product.price - (product.price * product.discountPercentage) / 100).toFixed(0);
+    const discountedPrice = priceCalculate(product.price, product.discountPercentage);
 
     const renderPrice = (
         <Typography variant="h6" fontSize={17}>

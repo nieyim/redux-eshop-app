@@ -94,7 +94,13 @@ export default function ProductForm({ initialValues, onSubmit, category }: Produ
             <form onSubmit={handleSubmit(handleFormSubmit)}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} display={'flex'} justifyContent={'center'}>
-                        <img alt="" src={control._defaultValues.thumbnail}></img>
+                        <img
+                            alt=""
+                            src={control._defaultValues.thumbnail}
+                            width="100%"
+                            height={isEditMode ? 400 : 0}
+                            style={{ objectFit: 'cover' }}
+                        />
                     </Grid>
 
                     <Grid item xs={12} md={6}>

@@ -45,10 +45,16 @@ export function HomeCTA() {
                                 InputProps={{
                                     style: {
                                         backgroundColor: 'white',
+                                        borderRadius: '0px',
                                     },
                                 }}
                             />
-                            <Button type="submit" color="primary" variant="contained" sx={{ width: '100%' }}>
+                            <Button
+                                type="submit"
+                                color="primary"
+                                variant="contained"
+                                sx={{ width: '100%', py: 2, borderRadius: '0px' }}
+                            >
                                 Keep me updated
                             </Button>
                         </Box>

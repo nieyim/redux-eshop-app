@@ -10,9 +10,13 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import {
+    AdminBlogPage,
+    AdminOrderPage,
     AdminProductPage,
+    AdminUserPage,
     BlogDetail,
     BlogPage,
+    CartPage,
     DashboardPage,
     HomePage,
     LoginPage,
@@ -25,6 +29,10 @@ import { AdminPage } from './pages/AdminPage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import theme from './utils/theme';
 import { AdminProductList, AdminAddEditProduct } from './features/product/components';
+import { ScrollToTopButton } from './components/common';
+import { AdminBlogList } from './features/blog/components';
+import { AdminUserList } from './features/user/components/AdminUserList';
+import { AdminOrderList } from './features/order/components/AdminOrderList';
 
 function App() {
     return (
@@ -39,6 +47,7 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/blogs" element={<BlogPage />} />
                 <Route path="/blogs/:blogID" element={<BlogDetail />} />
+                <Route path="/carts" element={<CartPage />} />
                 <Route element={<PrivateRoute />}>
                     <Route path="/admin" element={<AdminPage />}>
                         <Route path="/admin/dashboard" element={<DashboardPage />} />
@@ -47,10 +56,20 @@ function App() {
                             <Route path="/admin/products/add" element={<AdminAddEditProduct />} />
                             <Route path="/admin/products/:productID" element={<AdminAddEditProduct />} />
                         </Route>
+                        <Route path="/admin/posts" element={<AdminBlogPage />}>
+                            <Route path="/admin/posts" element={<AdminBlogList />} />
+                        </Route>
+                        <Route path="/admin/users" element={<AdminUserPage />}>
+                            <Route path="/admin/users" element={<AdminUserList />} />
+                        </Route>
+                        <Route path="/admin/orders" element={<AdminOrderPage />}>
+                            <Route path="/admin/orders" element={<AdminOrderList />} />
+                        </Route>
                     </Route>
                 </Route>
                 <Route path="/*" element={<NotFound />} />
             </Routes>
+            <ScrollToTopButton />
         </ThemeProvider>
     );
 }

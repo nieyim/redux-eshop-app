@@ -1,15 +1,20 @@
 import HomeIcon from '@mui/icons-material/Home';
 import { Box, Breadcrumbs, Container, Grid, Link, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { productsApi } from '../api';
 import { PublicFooter, PublicHeader } from '../components/layout';
 import { ProductCarousel, ProductInfo, ProductRealted, ProductTab } from '../features/product/components';
 import { Product } from '../models';
+import { CartButton } from '../components/common';
+import { cartThunk } from '../features/cart/cartThunk';
+import { useAppDispatch } from '../app/hooks';
 
 export function ProductDetailPage() {
     const { productID } = useParams<{ productID: string }>(); // Extract the productID from the URL params
     const [currentProduct, setCurentProduct] = useState<Product>();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!productID) return;
@@ -19,9 +24,14 @@ export function ProductDetailPage() {
                 setCurentProduct(product);
             } catch (error) {
                 console.log(error);
+                navigate('/notfound');
             }
         })();
-    }, [productID]);
+    }, [productID, navigate]);
+
+    useEffect(() => {
+        dispatch(cartThunk());
+    }, [dispatch]);
 
     const renderBreadcrumbs = (
         <Breadcrumbs aria-label="breadcrumb" separator="›">
@@ -72,6 +82,7 @@ export function ProductDetailPage() {
                 </Container>
             </Box>
             <PublicFooter />
+            <CartButton />
         </React.Fragment>
     );
 }

@@ -10,4 +10,8 @@ export const postApi = {
         const url = `api/posts/${id}`;
         return axiosClient.get(url);
     },
+    deletePost(id: any) {
+        const url = `api/posts/${id}`;
+        return axiosClient.delete(url);
+    },
 };

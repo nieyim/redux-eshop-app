@@ -12,7 +12,7 @@ const initialState: DashboardState = {
         postCount: 0,
     },
     error: '',
-    barchartCart: [],
+    barchartOrder: [],
     barchartUser: [],
     piechart: [],
 };
@@ -32,7 +32,7 @@ const dashboardSlice = createSlice({
                 state.statistics.productCount = action.payload.productCount;
                 state.statistics.productCategoryCount = action.payload.categoryCount;
                 state.statistics.postCount = action.payload.postCount;
-                state.barchartCart = action.payload.cartList;
+                state.barchartOrder = action.payload.orderList;
                 state.barchartUser = action.payload.userName;
                 state.piechart = action.payload.genderCount;
             })
@@ -49,6 +49,6 @@ export const selectProductCount = (state: RootState) => state.dashboard.statisti
 export const selectCategoryCount = (state: RootState) => state.dashboard.statistics.productCategoryCount;
 export const selectPostCount = (state: RootState) => state.dashboard.statistics.postCount;
 export const selectIsLoading = (state: RootState) => state.dashboard.loading;
-export const selectBarChartCart = (state: RootState) => state.dashboard.barchartCart;
+export const selectBarChartOrder = (state: RootState) => state.dashboard.barchartOrder;
 export const selectBarChartUser = (state: RootState) => state.dashboard.barchartUser;
 export const selectPieChart = (state: RootState) => state.dashboard.piechart;

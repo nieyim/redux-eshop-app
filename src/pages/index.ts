@@ -8,3 +8,7 @@ export * from './ProductPage';
 export * from './BlogPage';
 export * from './BlogDetailPage';
 export * from './ProductDetailPage';
+export * from './CartPage';
+export * from './AdminBlogPage';
+export * from './AdminUserPage';
+export * from './AdminOrderPage';

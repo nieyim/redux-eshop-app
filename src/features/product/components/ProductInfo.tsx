@@ -1,12 +1,17 @@
 import AddIcon from '@mui/icons-material/Add';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import RemoveIcon from '@mui/icons-material/Remove';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Box, Button, ButtonProps, IconButton, IconButtonProps, Rating, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
+import { useAppDispatch } from '../../../app/hooks';
 import { Product } from '../../../models';
+import { addToCart } from '../../cart/cartSlice';
+import { cartApi } from '../../../api';
+import { priceCalculate } from '../../../utils/priceCalculate';
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface ProductInfoProps {
     product: Product;
@@ -14,9 +19,10 @@ export interface ProductInfoProps {
 
 export function ProductInfo(props: ProductInfoProps) {
     const product = props.product;
-    const discountedPrice = (product.price - (product.price * product.discountPercentage) / 100).toFixed(0);
+    const discountedPrice = priceCalculate(product.price, product.discountPercentage);
     const [quantity, setQuantity] = useState(1);
     const [reaction, setReaction] = useState(false);
+    const dispatch = useAppDispatch();
 
     const handleIncrease = () => {
         setQuantity(quantity + 1);
@@ -57,6 +63,43 @@ export function ProductInfo(props: ProductInfoProps) {
         borderRadius: '50px',
         border: '1px solid #ebebeb',
     });
+
+    const handleAddToCart = async () => {
+        try {
+            const data = {
+                products: product,
+                quantity: quantity,
+            };
+
+            if (data.quantity === 0) return;
+            // Call API to check if the product is already in the cart
+            const cartItem = await cartApi.checkCartItem(data.products.id);
+
+            // If the product is already in the cart, update the quantity
+            if (cartItem) {
+                const updatedCartItem = {
+                    ...cartItem,
+                    quantity: cartItem.quantity + quantity,
+                };
+
+                // Call API to update the quantity
+                await cartApi.updateCartItem(updatedCartItem);
+            } else {
+                // If the product is not in the cart, add it
+                await cartApi.addCart(data);
+            }
+            // Dispatch the addToCart action to update the local state
+            dispatch(addToCart(data));
+            toast.success('Product added to the cart successfully!', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 2000,
+                theme: 'dark',
+                hideProgressBar: true,
+            });
+        } catch (error) {
+            console.error('Error adding item to cart:', error);
+        }
+    };
     return (
         <Box mb={4}>
             <Typography variant="h4" fontSize={32} fontWeight={600}>
@@ -101,6 +144,7 @@ export function ProductInfo(props: ProductInfoProps) {
                     color="secondary"
                     disableElevation
                     sx={{ display: 'flex' }}
+                    onClick={handleAddToCart}
                 >
                     Add to Cart
                 </AddToCartButton>
@@ -113,6 +157,7 @@ export function ProductInfo(props: ProductInfoProps) {
                     </FunctionButton>
                 </Stack>
             </Stack>
+            <ToastContainer />
         </Box>
     );
 }
