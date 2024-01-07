@@ -12,3 +12,4 @@ export * from './CartPage';
 export * from './AdminBlogPage';
 export * from './AdminUserPage';
 export * from './AdminOrderPage';
+export * from './AboutPage';

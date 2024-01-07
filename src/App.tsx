@@ -10,6 +10,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import {
+    AboutPage,
     AdminBlogPage,
     AdminOrderPage,
     AdminProductPage,
@@ -67,6 +68,7 @@ function App() {
                         </Route>
                     </Route>
                 </Route>
+                <Route path="/about" element={<AboutPage />}></Route>
                 <Route path="/*" element={<NotFound />} />
             </Routes>
             <ScrollToTopButton />
