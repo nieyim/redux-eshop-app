@@ -23,7 +23,7 @@ export default function ProductForm({ initialValues, onSubmit, category }: Produ
                 .required('Please enter product name')
                 .min(2, 'Name must be at least 2 characters')
                 .max(50, 'Name must not exceed 50 characters'),
-            description: yup.string(),
+            summary: yup.string(),
             price: yup
                 .number()
                 .required('Please enter price')
