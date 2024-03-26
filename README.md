@@ -77,6 +77,38 @@ Before you begin, please ensure that you have the following prerequisites:
 
 Follow these steps to set up the project on your local machine:
 
+### Run the fake API backend:
+Navigate to the directory where you intend to store the project, and open the command-line interface (CLI), such as Command Prompt (cmd) for Windows users or Terminal for macOS and Linux users:
+```js
+git clone https://github.com/nieyim/json-server-eshop.git
+```
+
+### Navigate to the project directory:
+```
+cd json-server-eshop
+```
+
+### Install project dependencies:
+Using npm:
+```
+npm install
+```
+Using yarn:
+```
+yarn install
+```
+
+### Run the project:
+To run the application, follow these steps:
+
+Using npm:
+```
+npm start
+```
+Using yarn:
+```
+yarn start
+```
 
 ### Clone the repository to your local machine:
 Navigate to the directory where you intend to store the project, and open the command-line interface (CLI), such as Command Prompt (cmd) for Windows users or Terminal for macOS and Linux users:
